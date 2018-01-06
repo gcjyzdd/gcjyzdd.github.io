@@ -19,8 +19,7 @@ jekyll new ga_blog
 It creates several default files in the folder `ga_blog`. 
 
 
-Serve the website
-----------------------
+# Serve the website
 
 At the first time, use the command
 
@@ -57,6 +56,19 @@ Server running... press ctrl-c to stop.
 ```
 
 [Ref](https://stackoverflow.com/questions/16608466/connect-to-a-locally-built-jekyll-server-using-mobile-devices-in-the-lan)
+
+
+# Enable images
+
+Set `baseurl` in `_config.yml`, for example:
+```
+baseurl: "/blog" # the subpath of your site, e.g. /blog
+```
+
+And insert the `src` of images as:
+```
+<div style="text-align:center"><img src="{{site.baseurl}}/assets/SDC-PreScan/keyboard_inputs.png" /></div>
+```
 
 Subdirectories
 ---------------

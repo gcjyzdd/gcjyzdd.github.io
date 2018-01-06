@@ -30,6 +30,34 @@ bundle exec jekyll serve
 
 to serve the website. Later just use `jekyll serve` for short.
 
+# Serve locally
+
+Try `jekyll serve --host=0.0.0.0` when you invoke Jekyll on the command line.
+
+That will make Jekyll's HTTP server bind to all available IPs, rather than just to `localhost`.
+
+You can also add this to your `_config.yml` with `host: 0.0.0.0`. GitHub will simply ignore this when you push, so it's safe to use if you don't mind having your work openly accessible on your network.
+
+Without `--host=0.0.0.0` Jekyll will output something like this when you start up:
+
+```
+$ jekyll serve
+[...]
+Server address: http://127.0.0.1:4000/
+Server running... press ctrl-c to stop.
+```
+
+But with `--host=0.0.0.0` (or `host: 0.0.0.0` in `_config.yml`) you'll notice that it's listening on all interfaces (represented by `0.0.0.0`) rather than just listening on the loopback interface (represented by `127.0.0.1`)
+
+```
+$ jekyll serve --host=0.0.0.0
+[...]
+Server address: http://0.0.0.0:4000/
+Server running... press ctrl-c to stop. 
+```
+
+[Ref](https://stackoverflow.com/questions/16608466/connect-to-a-locally-built-jekyll-server-using-mobile-devices-in-the-lan)
+
 Subdirectories
 ---------------
 

@@ -17,7 +17,7 @@ source ~/.bashrc
 
 Create `environment-gpu.yml`:
 ```
-name: env-changjie
+name: env-name
 channels:
     - https://conda.anaconda.org/menpo
     - conda-forge
@@ -48,6 +48,11 @@ dependencies:
 Create `env`:
 ```
 conda env create -f environment-gpu.yml
+```
+
+Remove
+```
+conda env remove -n env-name
 ```
 
 ## Load Data

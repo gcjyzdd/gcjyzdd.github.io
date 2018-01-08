@@ -4,6 +4,52 @@ date:   2017-12-28 22:11
 categories: DeepLearning Tensorflow
 ---
 
+## Create virtual env with miniconda
+
+Install `miniconda`:
+
+```
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+source ~/.bashrc
+```
+
+Create `environment-gpu.yml`:
+```
+name: env-changjie
+channels:
+    - https://conda.anaconda.org/menpo
+    - conda-forge
+dependencies:
+    - python==3.5.2
+    - numpy
+    - matplotlib
+    - jupyter
+    - opencv3
+    - pillow
+    - scikit-learn
+    - scikit-image
+    - scipy
+    - h5py
+    - eventlet
+    - flask-socketio
+    - seaborn
+    - pandas
+    - ffmpeg
+    - imageio=2.1.2
+    - pyqt=4.11.4
+    - pip:
+        - moviepy
+        - https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl
+        - keras==1.2.1
+```
+
+Create `env`:
+```
+conda env create -f environment-gpu.yml
+```
+
 ## Load Data
 
 ## Shuffle Data

@@ -26,6 +26,36 @@ binOut = cv2.resize(binOut, (width_s, height_s))
 
 # Python
 
+## FIFO
+
+You can add items using the `append` method and remove them using `pop`. For a `LIFO` this would look like this:
+
+```
+stack = list()
+stack.append(1)
+stack.append(2)
+stack.append(3)
+
+print stack.pop()  #3
+print stack.pop()  #2
+print stack.pop()  #1
+```
+
+If you supply an integer argument for `pop` you can specify which element to remove. For a FIFO use the index 0 for the first element:
+
+```
+stack = list()
+stack.append(1)
+stack.append(2)
+stack.append(3)
+
+print stack.pop(0)  #1
+print stack.pop(0)  #2
+print stack.pop(0)  #3
+```
+
+[Ref](https://stackoverflow.com/questions/19219903/python-first-in-first-out-print)
+
 ##  list: difference between append and extend
 
 ```

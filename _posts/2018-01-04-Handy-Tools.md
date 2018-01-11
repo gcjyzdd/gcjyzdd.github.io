@@ -92,10 +92,33 @@ Switch to previous window:
 ```
 
 Switch to next window:
+```
 <ctrl-B>n
+```
 
 Close a window:
 ```
 <ctrl-B>&
 ```
+
+[Scroll](https://superuser.com/questions/209437/how-do-i-scroll-in-tmux):
+
+`Ctrl-b` then `[` then you can use your normal navigation keys to scroll around (eg. `Up Arrow` or `PgDn`). Press `q` to quit scroll mode.
+
+---
+# Crop Video using FFMPEG
+
+Use the crop filter:
+```
+ffmpeg -i in.mp4 -filter:v "crop=out_w:out_h:x:y" out.mp4
+```
+
+Where the options are as follows:
+
+* `out_w` is the width of the output rectangle
+* `out_h` is the height of the output rectangle
+* `x` and `y` specify the top left corner of the output rectangle
+
+[Ref](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
+
 

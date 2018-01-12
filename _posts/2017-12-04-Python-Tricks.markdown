@@ -8,6 +8,22 @@ categories: Python Numpy
 ### Table of Contents
 [Numpy](#Numpy)
 
+
+Resize image to get a small view:
+
+```
+from PIL import Image
+img = Image.open('../_static/stinkbug.png')
+img.thumbnail((64, 64), Image.ANTIALIAS) # resizes image in-place
+imgplot = plt.imshow(img)
+```
+
+Resize using cv2:
+
+```
+binOut = cv2.resize(binOut, (width_s, height_s))
+```
+
 # Python
 
 ## FIFO

@@ -122,3 +122,42 @@ Where the options are as follows:
 [Ref](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
 
 
+# sed - replace file in place
+
+Replace 
+
+```
+![]({{"assets/Screenshot from 2017-12-28 15-01-32.png" | absolute_url}}) 
+```
+with 
+```
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-01-32.png)
+```
+using `sed`:
+
+{% raw %}
+~~~sh
+sed -i 's/{{"assets/{{site.baseurl}}\/assets/g' tmp.txt
+sed -i 's/"\s|\sabsolute_url}}//g' tmp.txt 
+~~~
+{% endraw %}
+
+Replace
+{% raw %}
+~~~html
+<div style="text-align:center"><img src ='{{"assets/Screenshot from 2017-12-29 22-46-33.png" | absolute_url}}' /></div>
+~~~
+{% endraw %}
+with
+
+{% raw %}
+~~~html
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2017-12-29 22-46-33.png' /></div>`
+~~~
+{% endraw %}
+using:
+
+``` sh
+sed -i 's/"assets/site\.baseurl}}\/assets/g'
+sed -i 's/"\s|\sabsolute_url}}//g'
+```

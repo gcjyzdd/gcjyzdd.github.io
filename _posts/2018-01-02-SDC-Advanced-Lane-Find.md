@@ -10,7 +10,7 @@ author: Udacity
 
 # Welcome to Computer Vision
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 20-53-08.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 20-53-08.png' /></div>
 
 
 # Overview
@@ -24,12 +24,12 @@ Goals:
 
 # Pinhole Camera Model
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 21-04-25.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 21-04-25.png' /></div>
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 21-05-48.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 21-05-48.png' /></div>
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 21-07-05.png
-" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 21-07-05.png
+' /></div>
 
 ## Types of Distortion
 
@@ -39,8 +39,8 @@ Another type of distortion, is **tangential distortion**. This occurs when a cam
 
 Tanential Distortion: it happens when the lens is not perfectly aligned parallel to the image plane.
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 21-11-50.png" | absolute_url}}' /></div>
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2018-01-02 21-12-55.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 21-11-50.png' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2018-01-02 21-12-55.png' /></div>
 
 # Finding Corners
 
@@ -50,7 +50,7 @@ To learn more about both of those functions, you can have a look at the OpenCV d
 
 Applying these two functions to a sample image, you'll get a result like this:
 
-<div style="text-align:center"><img src ='{{"assets/corners-found3.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/corners-found3.jpg' /></div>
 
 In the following exercise, your job is simple. Count the number of corners in any given row and enter that value in nx. Similarly, count the number of corners in a given column and store that in ny. Keep in mind that "corners" are only points where two black and two white squares intersect, in other words, only count inside corners, not outside corners.
 
@@ -170,10 +170,10 @@ warped = cv2.warpPerspective(img, M, img_size, flags=cv2.INTER_LINEAR)
 
 # Undistort and Transform Perspective
 
-<div style="text-align:center"><img src ='{{"assets/undist-and-warp.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/undist-and-warp.png' /></div>
 
-<img src='{{"assets/undist-and-warp.png" | absolute_url}}' style="float: left; width: 45%; margin-right: 1%; margin-bottom: 0.5em;">
-<img src='{{"assets/undist-and-warp2.png" | absolute_url}}' style="float: left; width: 45%; margin-right: 1%; margin-bottom: 0.5em;">
+<img src='{{site.baseurl}}/assets/undist-and-warp.png' style="float: left; width: 45%; margin-right: 1%; margin-bottom: 0.5em;">
+<img src='{{site.baseurl}}/assets/undist-and-warp2.png' style="float: left; width: 45%; margin-right: 1%; margin-bottom: 0.5em;">
 <p style="clear: both;"></p>
 
 Here's a tricky quiz for you! You have now seen how to find corners, calibrate your camera, undistort an image, and apply a perspective transform. Now it's your chance to perform all these steps on an image. In the last quiz you calibrated the camera, so here I'm giving you the camera matrix, `mtx`, and the distortion coefficients `dist` to start with.
@@ -261,13 +261,13 @@ plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
 plt.show()
 ```
 
-<div style="text-align:center"><img src ='{{"assets/undist-and-warp_quiz.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/undist-and-warp_quiz.png' /></div>
 
 ## Solbel Operator
 
 The Sobel operator is at the heart of the Canny edge detection algorithm you used in the Introductory Lesson. Applying the Sobel operator to an image is a way of taking the derivative of the image in the x or y direction. The operators for $$Sobel_x$$ and $$Sobel_y$$, respectively, look like this:
 
-<div style="text-align:center"><img src ='{{"assets/soble-operator.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/soble-operator.png' /></div>
 
 These are examples of Sobel operators with a kernel size of 3 (implying a 3 x 3 operator in each case). This is the minimum size, but the kernel size can be any odd number. A larger kernel implies taking the gradient over a larger region of the image, or, in other words, a smoother gradient.
 
@@ -327,7 +327,7 @@ Here's your chance to write a function that will be useful for the Advanced Lane
 
 #### Example
 
-<div style="text-align:center"><img src ='{{"assets/thresh-x-example.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/thresh-x-example.png' /></div>
 
 Here's the scaffolding for your function:
 
@@ -539,7 +539,7 @@ A **color space** is a specific organization of colors; color spaces provide a w
 
 *Note*: If you read in an image using matplotlib.image.imread() you will get an RGB image, but if you read it in using OpenCV cv2.imread() this will give you a BGR image.
 
-<div style="text-align:center"><img width='400px' src ='{{"assets/screen-shot-2016-11-22-at-4.35.48-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='400px' src ='{{site.baseurl}}/assets/screen-shot-2016-11-22-at-4.35.48-pm.png' /></div>
 
 There are many other ways to represent the colors in an image besides just composed of red, green, and blue values.
 
@@ -551,7 +551,7 @@ On the other hand, **Lightness** and **Value** represent different ways to measu
 
 Most of these different color spaces were either inspired by the human vision system, and/or developed for efficient use in television screen displays and computer graphics. You can read more about the history and the derivation of HLS and HSV color spaces [here](https://en.wikipedia.org/wiki/HSL_and_HSV).
 
-<div style="text-align:center"><img width='600px' src ='{{"assets/Screenshot from 2018-01-04 13-18-53.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='600px' src ='{{site.baseurl}}/assets/Screenshot from 2018-01-04 13-18-53.png' /></div>
 
 In the code example, I used HLS space to help detect lane lines of different colors and under different lighting conditions.
 
@@ -590,7 +590,7 @@ $$S\leftarrow \frac{V_{max}-V_{min}}{2-(V_{max}+V_{min})}$$, if $$L\ge0.5$$
 
 # HLS and Color Thresholds
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/hslthresholding.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/hslthresholding.jpg' /></div>
 
 You've now seen that various color thresholds can be applied to find the lane lines in images. Here we'll explore this a bit further and look at a couple examples to see why a color space like HLS can be more robust. Let's first take another look at some of the images you saw in the last video.
 
@@ -610,7 +610,7 @@ binary[(gray > thresh[0]) & (gray <= thresh[1])] = 1
 ```
 And here's the result:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6gray.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6gray.jpg' /></div>
 
 You might have also explored thresholding individual RGB color channels. You can take a look at them side by side to see which ones do a better job of picking up the lane lines:
 
@@ -620,7 +620,7 @@ G = image[:,:,1]
 B = image[:,:,2]
 ```
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6rgb.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6rgb.jpg' /></div>
 
 The R channel does a reasonable job of highlighting the lines, and you can apply a similar threshold to find lane-line pixels:
 
@@ -630,7 +630,7 @@ binary = np.zeros_like(R)
 binary[(R > thresh[0]) & (R <= thresh[1])] = 1
 ```
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6r-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6r-channel.jpg' /></div>
 
 In this lesson, we're looking at different color spaces. While there are several that are worth exploring, here we'll look specifically at HLS. When we separate the H, L, and S channels we get the following result:
 
@@ -640,7 +640,7 @@ H = hls[:,:,0]
 L = hls[:,:,1]
 S = hls[:,:,2]
 ```
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6hls.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6hls.jpg' /></div>
 
 The S channel picks up the lines well, so let's try applying a threshold there:
 
@@ -650,7 +650,7 @@ binary = np.zeros_like(S)
 binary[(S > thresh[0]) & (S <= thresh[1])] = 1
 ```
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6s-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6s-channel.jpg' /></div>
 
 You can also see that in the H channel, the lane lines appear dark, so we could try a low threshold there and obtain the following result:
 
@@ -660,7 +660,7 @@ binary = np.zeros_like(H)
 binary[(H > thresh[0]) & (H <= thresh[1])] = 1
 ```
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test6h-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test6h-channel.jpg' /></div>
 
 From these examples, you can see that the S channel is probably your best bet. It's cleaner than the H channel result and a bit better than the R channel or simple grayscaling. But it's not clear that one method is far superior to the others.
 
@@ -668,13 +668,13 @@ In each case, I've tweaked the threshold parameters to do as good a job as possi
 
 Look at the same thresholds applied to each of these four channels for this image:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test4gray.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test4gray.jpg' /></div>
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test4h-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test4h-channel.jpg' /></div>
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test4r-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test4r-channel.jpg' /></div>
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/test4s-channel.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/test4s-channel.jpg' /></div>
 
 Now you can see that, the S channel is still doing a fairly robust job of picking up the lines under very different color and contrast conditions, while the other selections look messy. You could tweak the thresholds and get closer in the other channels, but the S channel is preferable because it is more robust to changing conditions.
 
@@ -727,7 +727,7 @@ plt.show()
 
 Now it's time to combine what you know about color and gradient thresholding to get the best of both worlds. Here's an example of how that might look:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/screen-shot-2016-12-06-at-5.19.16-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/screen-shot-2016-12-06-at-5.19.16-pm.png' /></div>
 
 At this point, it's okay to detect edges around trees or cars because these lines can be mostly filtered out by applying a mask to the image and essentially cropping out the area outside of the lane lines. It's most important that you reliably detect different colors of lane lines under varying degrees of daylight and shadow.
 
@@ -782,7 +782,7 @@ ax2.imshow(combined_binary, cmap='gray')
 
 The output is shown below. The final image `color_binary` is a combination of binary thresholding the S channel (HLS) and binary thresholding the result of applying the Sobel operator in the x direction on the original image.
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/screen-shot-2016-12-06-at-5.27.35-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/screen-shot-2016-12-06-at-5.27.35-pm.png' /></div>
 
 In this next exercise, you'll get the chance to play around with different combinations of color and gradient with the goal using the pipeline you come up with for your upcoming project. There's no correct submission, just explore!
 
@@ -797,7 +797,7 @@ Some interesting things to explore might include: the H channel, different thres
 
 # Processing Each Image
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/color-shadow-example.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/color-shadow-example.jpg' /></div>
 
 In the project at the end of this module, the first thing you'll do is to compute the camera calibration matrix and distortion coefficients. You only need to compute these once, and then you'll apply them to undistort each new frame. Next, you'll apply thresholds to create a binary image and then apply a perspective transform.
 
@@ -805,7 +805,7 @@ In the project at the end of this module, the first thing you'll do is to comput
 
 You'll want to try out various combinations of color and gradient thresholds to generate a binary image where the lane lines are clearly visible. There's more than one way to achieve a good result, but for example, given the image above, the output you're going for should look something like this:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/binary-combo-img.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/binary-combo-img.jpg' /></div>
 
 ## Perspective Transform
 Next, you want to identify four source points for your perspective transform. In this case, you can assume the road is a flat plane. This isn't strictly true, but it can serve as an approximation for this project. You would like to pick four points in a trapezoidal shape (similar to region masking) that would represent a rectangle when looking down on the road from above.
@@ -814,7 +814,7 @@ The easiest way to do this is to investigate an image where the lane lines are s
 
 Here's an example of the result you are going for with straight lane lines:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/warped-straight-lines.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/warped-straight-lines.jpg' /></div>
 
 ## Now for curved lines
 
@@ -822,12 +822,12 @@ Those same four source points will now work to transform any image (again, under
 
 Here's an example of applying a perspective transform to your thresholded binary image, using the same source and destination points as above, showing that the curved lines are (more or less) parallel in the transformed image:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/warped-curved-lines.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/warped-curved-lines.jpg' /></div>
 
 
 # Finding the lines
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/warped-example.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/warped-example.jpg' /></div>
 
 You now have a thresholded warped image and you're ready to map out the lane lines! There are many ways you could go about this, but here's one example of how you might do it:
 
@@ -845,14 +845,14 @@ plt.plot(histogram)
 
 The result looks like this:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/screen-shot-2017-01-28-at-11.21.09-am.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/screen-shot-2017-01-28-at-11.21.09-am.png' /></div>
 
 ## Sliding Window
 With this histogram I am adding up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. I can use that as a starting point for where to search for the lines. From that point, I can use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.
 
 Here is a short animation showing this method:
 
-<div style="text-align:center"><video width="100%" controls><source src ='{{"assets/Finding Lane Pixels by Histogram and Sliding Window.mp4" | absolute_url}}' />Your browser does not support HTML5 video.</video></div>
+<div style="text-align:center"><video width="100%" controls><source src ='{{site.baseurl}}/assets/Finding Lane Pixels by Histogram and Sliding Window.mp4' />Your browser does not support HTML5 video.</video></div>
 
 ## Implement Sliding Windows and Fit a Polynomial
 
@@ -956,7 +956,7 @@ plt.ylim(720, 0)
 
 The output should look something like this:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/screen-shot-2017-01-28-at-11.49.20-am.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/screen-shot-2017-01-28-at-11.49.20-am.png' /></div>
 
 ## Skip the sliding windows step once you know where the lines are
 
@@ -1026,7 +1026,7 @@ plt.ylim(720, 0)
 
 And the output should look something like this:
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/screen-shot-2017-01-28-at-12.39.43-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/screen-shot-2017-01-28-at-12.39.43-pm.png' /></div>
 
 The green shaded area shows where we searched for the lines this time. So, once you know where the lines are in one frame of video, you can do a highly targeted search for them in the next frame. This is equivalent to using a customized region of interest for each frame of video, and should help you track the lanes through sharp curves and tricky conditions. If you lose track of the lines, go back to your sliding windows search or other method to rediscover them.
 
@@ -1038,7 +1038,7 @@ You slide your window template across the image from left to right and any overl
 
 Now let's try using convolutions to find the best window center positions in a thresholded road image. The code below allows you to experiment with using convolutions for a sliding window search function. Go ahead and give it a try.
 
-<div style="text-align:center"><img width='70%' src ='{{"assets/window-result2.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='70%' src ='{{site.baseurl}}/assets/window-result2.png' /></div>
 
 ```py
 import numpy as np
@@ -1138,7 +1138,7 @@ plt.show()
 # Measuring Curvature
 You're getting very close to a final result! You have a thresholded image, where you've estimated which pixels belong to the left and right lane lines (shown in red and blue, respectively, below), and you've fit a polynomial to those pixel positions. Next we'll compute the radius of curvature of the fit.
 
-<div style="text-align:center"><img width='70%' src ='{{"assets/color-fit-lines.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='70%' src ='{{site.baseurl}}/assets/color-fit-lines.jpg' /></div>
 
 In the last exercise, you located the lane line pixels, used their x and y pixel positions to fit a second order polynomial curve:
 
@@ -1202,7 +1202,7 @@ plt.plot(right_fitx, ploty, color='green', linewidth=3)
 plt.gca().invert_yaxis() # to visualize as we do the images
 ```
 
-<div style="text-align:center"><img width='70%' src ='{{"assets/screen-shot-2017-01-27-at-9.47.14-am.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='70%' src ='{{site.baseurl}}/assets/screen-shot-2017-01-27-at-9.47.14-am.png' /></div>
 
 Now we have polynomial fits and we can calculate the radius of curvature as follows:
 
@@ -1257,7 +1257,7 @@ We're not expecting anything like perfection for this project, but a good check 
 
 Here is an image from Google maps of where the project video was made (just northwest of the Udacity office!). Here, I've drawn a circle to coincide with the first left curve in the project video. This is a very rough estimate, but as you can see, the radius of that circle is approximately 1 km. You don't need to tune your algorithm to report exactly a radius of 1 km in the project, but if you're reporting 10 km or 0.1 km, you know there might be something wrong with your calculations!
 
-<div style="text-align:center"><img width='70%' src ='{{"assets/screen-shot-2017-01-28-at-5.06.11-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='70%' src ='{{site.baseurl}}/assets/screen-shot-2017-01-28-at-5.06.11-pm.png' /></div>
 
 Here are some other tips and tricks for building a robust pipeline:
 
@@ -1347,5 +1347,5 @@ result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)
 plt.imshow(result)
 ```
 
-<div style="text-align:center"><img width='100%' src ='{{"assets/lane-drawn.jpg" | absolute_url}}' /></div>
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/lane-drawn.jpg' /></div>
 

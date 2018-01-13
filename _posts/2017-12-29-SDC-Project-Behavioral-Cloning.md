@@ -61,7 +61,7 @@ The image below gives a sense for how multiple cameras are used to train a self-
 
 From the perspective of the left camera, the steering angle would be less than the steering angle from the center camera. From the right camera's perspective, the steering angle would be larger than the angle from the center camera. The next section will discuss how this can be implemented in your project although there is no requirement to use the left and right camera images.
 
-<div style="text-align:center"><img src ='{{"assets/carnd-using-multiple-cameras.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/carnd-using-multiple-cameras.png' /></div>
 
 Multiple Cameras in This Project
 For this project, recording recoveries from the sides of the road back to center is effective. But it is also possible to use all three camera images to train the model. When recording, the simulator will simultaneously save an image for the left, center and right cameras. Each row of the csv log file, driving_log.csv, contains the file path for each camera as well as information about the steering measurement, throttle, brake and speed of the vehicle.
@@ -114,7 +114,7 @@ It is not necessary to use the left and right images to derive a successful mode
     * one lap focusing on driving smoothly around curves
 
 Deep CNN:
-<div style="text-align:center"><img src ='{{"assets/cnn-architecture-624x890.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/cnn-architecture-624x890.png' /></div>
 
 
 ## Visualizing Loss
@@ -132,7 +132,7 @@ With `model.fit(verbose = 2)`, Keras will only output the loss on the training s
 
 ### Model History Object
 When calling `model.fit()` or `model.fit_generator()`, Keras outputs a history object that contains the training and validation loss for each epoch. Here is an example of how you can use the history object to visualize the loss:
-<div style="text-align:center"><img src ='{{"assets/screen-shot-2017-02-14-at-8.29.09-pm.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/screen-shot-2017-02-14-at-8.29.09-pm.png' /></div>
 
 The following code shows how to use the `model.fit()` history object to produce the visualization.
 

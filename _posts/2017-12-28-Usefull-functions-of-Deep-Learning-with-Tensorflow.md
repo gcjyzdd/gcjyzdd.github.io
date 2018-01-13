@@ -102,4 +102,4 @@ model.add(Cropping2D(cropping=((50,20), (0,0)), input_shape=(3,160,320)))
 ...
 ```
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2017-12-29 22-46-33.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2017-12-29 22-46-33.png' /></div>

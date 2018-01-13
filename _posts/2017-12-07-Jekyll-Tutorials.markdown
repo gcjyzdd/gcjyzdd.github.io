@@ -7,8 +7,8 @@ author: "C. Guan"
 permalink: /:year/:categories/:title.html
 ---
 
-Create new project
-------------------
+## Create new project
+---
 
 Use `jekyll new` to create a new project:
 
@@ -19,7 +19,8 @@ jekyll new ga_blog
 It creates several default files in the folder `ga_blog`. 
 
 
-# Serve the website
+## Serve the website
+---
 
 At the first time, use the command
 
@@ -29,7 +30,8 @@ bundle exec jekyll serve
 
 to serve the website. Later just use `jekyll serve` for short.
 
-# Serve locally
+## Serve locally
+---
 
 Try `jekyll serve --host=0.0.0.0` when you invoke Jekyll on the command line.
 
@@ -58,7 +60,7 @@ Server running... press ctrl-c to stop.
 [Ref](https://stackoverflow.com/questions/16608466/connect-to-a-locally-built-jekyll-server-using-mobile-devices-in-the-lan)
 
 
-# Enable images
+## Enable images
 
 Set `baseurl` in `_config.yml`, for example:
 ```
@@ -66,17 +68,26 @@ baseurl: "/blog" # the subpath of your site, e.g. /blog
 ```
 
 And insert the `src` of images as:
-```
+
+{% raw %}
+~~~ html
 <div style="text-align:center"><img src="{{site.baseurl}}/assets/SDC-PreScan/keyboard_inputs.png" /></div>
+~~~
+{% endraw %}
+
+or
+
+```
+![image]({{site.baseurl}}/assets/yourpicture.png)
 ```
 
-Subdirectories
----------------
+## Subdirectories
+---
 
 And we can create subdirectories inside the `_post` folder to efficiently manage contents. Jekyll handles all the files inside `_post` automatically.
 
-Drafts
-------
+## Drafts
+---
 
 Create a folder named `_drafts` under the root of the project. Files inside `_drafts` are not shown when serving the website. However, you can use `--draft` option to explictly show the drafts:
 
@@ -87,8 +98,8 @@ jekyll serve --draft
 In addition, when wpermalink: "/my-post/post#1"riting a draft post, it's not necessary to proceed with the date in the file name.
 
 
-New pages
-----------
+## New pages
+---
 
 You can create new pages like `About me` by just placing a file inside the root directory of the project.
 
@@ -105,8 +116,8 @@ title: Donate
 Donate to our site.
 ```
 
-Permalinks
-------------
+## Permalinks
+---
 
 Defaulty, jekyll uses the date and category to create the url of pages. Thus, if you chage the date of your post later, the original url will be gone. You don't want this if someone else saved your post link. To change this, add `permalink` to the front matter:
 
@@ -125,8 +136,8 @@ permalink: "/:category/:month/:year/:title.html"
 
 ```
 
-Front Matter Defaults
-----------------------
+## Front Matter Defaults
+---
 
 Default front matter values can be set in the `_config.yml` file. For example,
 
@@ -144,14 +155,14 @@ defaults:
 
 where `scope` specifies which those values are applied to.
 
-Themes
-----------
+##Themes
+---
 
 Search `jekyll-theme` in [rubygems.org](http://rubygems.org) to select your favoriate theme.
 
 For example, in Gemfile, append
 
-```
+``` sh
 gem "jekyll-theme-hacker"
 ```
 
@@ -161,12 +172,13 @@ And run `bundle install` to install the theme. And run `bundle exec jekyll serve
 
 Create folder `_layouts`. Overwrite `post` by creating `post.html` in the folder. 
 
-```
+{% raw %}
+~~~ html
 <h1>This is a post</h1>
 <hr>
 
 {{content}}
-
-```
+~~~
+{% endraw %}
 
 

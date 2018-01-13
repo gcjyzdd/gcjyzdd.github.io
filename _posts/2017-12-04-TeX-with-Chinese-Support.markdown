@@ -27,4 +27,6 @@ On Ubuntu system with texlive installed, this could cause an error if compile wi
 
 Below is the output display:
 
-![Output]({{"assets/tex_with_chinese.png" | absolute_url}})
+<div style="text-align:center"><img src="{{site.baseurl}}/assets/tex_with_chinese.png" /></div>
+
+![Output]({{site.baseurl}}/assets/tex_with_chinese.png)

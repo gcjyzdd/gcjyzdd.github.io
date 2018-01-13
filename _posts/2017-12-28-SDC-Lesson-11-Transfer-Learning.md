@@ -39,7 +39,7 @@ the approach for using transfer learning will be different. There are four main 
 3. new data set is large, new data is similar to original training data
 4. new data set is large, new data is different from original training data
 
-![]({{"assets/Screenshot from 2017-12-28 15-01-32.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-01-32.png)
 
 A large data set might have one million images. A small data could have two-thousand images. The dividing line between a large data set and small data set is somewhat subjective. Overfitting is a concern when using transfer learning with a small data set.
 
@@ -50,7 +50,7 @@ Each of the four transfer learning cases has its own approach. In the following 
 ### Demonstration Network
 To explain how each situation works, we will start with a generic pre-trained convolutional neural network and explain how to adjust the network for each case. Our example network contains three convolutional layers and three fully connected layers:
 
-![]({{"assets/Screenshot from 2017-12-28 15-05-40.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-05-40.png)
 
 Here is an generalized overview of what the convolutional neural network does:
 
@@ -62,7 +62,7 @@ Each transfer learning case will use the pre-trained convolutional neural networ
 
 ### Case 1: Small Data Set, Similar Data
 
-![]({{"assets/Screenshot from 2017-12-28 15-07-44.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-07-44.png)
 
 If the new data set is small and similar to the original training data:
 
@@ -77,11 +77,11 @@ Since the data sets are similar, images from each data set will have similar hig
 
 Here's how to visualize this approach:
 
-![]({{"assets/Screenshot from 2017-12-28 15-09-21.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-09-21.png)
 
 ### Case 2: Small Data Set, Different Data
 
-![]({{"assets/Screenshot from 2017-12-28 15-10-19.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-10-19.png)
 
 If the new data set is small and different from the original training data:
 
@@ -96,11 +96,11 @@ But the original training set and the new data set do not share higher level fea
 
 Here is how to visualize this approach:
 
-![]({{"assets/Screenshot from 2017-12-28 15-11-38.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-11-38.png)
 
 ### Case 3: Large Data Set, Similar Data
 
-![]({{"assets/Screenshot from 2017-12-28 15-12-49.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-12-49.png)
 
 If the new data set is large and similar to the original training data:
 
@@ -115,11 +115,11 @@ Because the original training set and the new data set share higher level featur
 
 Here is how to visualize this approach:
 
-![]({{"assets/Screenshot from 2017-12-28 15-14-13.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-14-13.png)
 
 ### Case 4: Large Data Set, Different Data
 
-![]({{"assets/Screenshot from 2017-12-28 15-15-21.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-15-21.png)
 
 If the new data set is large and different from the original training data:
 
@@ -133,7 +133,7 @@ If using the pre-trained network as a starting point does not produce a successf
 
 Here is how to visualize this approach:
 
-![]({{"assets/Screenshot from 2017-12-28 15-17-00.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 15-17-00.png)
 
 ## Feature Extraction
 
@@ -151,19 +151,19 @@ Your output will probably not precisely match the sample output below, since the
 
 The architecture of vgg network:
 
-![]({{"assets/Screenshot from 2017-12-28 21-41-52.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 21-41-52.png)
 
 ## GoogLeNet
 
 ### Inception module:
 
-![]({{"assets/Screenshot from 2017-12-28 21-48-13.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 21-48-13.png)
 
 The total number of parameters is small and that's why GoogLeNet runs fast.
 
 ## ResNet
 
-![]({{"assets/Screenshot from 2017-12-28 21-51-31.png" | absolute_url}})
+![]({{site.baseurl}}/assets/Screenshot from 2017-12-28 21-51-31.png)
 
 ## Transfer Learning with VGG, Inception (GoogLeNet) and ResNet
 
@@ -222,7 +222,7 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_siz
 
 The Cifar10 dataset contains 10 classes:
 
-<div style="text-align:center"><img src ='{{"assets/Screenshot from 2017-12-28 22-20-48.png" | absolute_url}}' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/Screenshot from 2017-12-28 22-20-48.png' /></div>
 
 While the German Traffic Sign dataset has more classes, the Cifar10 dataset is harder to classify due to the complexity of the classes. A ship is drastically different from a frog, and a frog is nothing like a deer, etc. These are the kind of datasets where the advantage of using a pre-trained model will become much more apparent.
 

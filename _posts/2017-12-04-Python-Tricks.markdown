@@ -5,7 +5,7 @@ date:   2017-12-04 22:20
 categories: Python Numpy
 ---
 
-### Table of Contents
+## Table of Contents
 [Numpy](#Numpy)
 
 
@@ -24,9 +24,9 @@ Resize using cv2:
 binOut = cv2.resize(binOut, (width_s, height_s))
 ```
 
-# Python
+## Python
 
-## FIFO
+### FIFO
 
 You can add items using the `append` method and remove them using `pop`. For a `LIFO` this would look like this:
 
@@ -56,7 +56,7 @@ print stack.pop(0)  #3
 
 [Ref](https://stackoverflow.com/questions/19219903/python-first-in-first-out-print)
 
-##  list: difference between append and extend
+###  list: difference between append and extend
 
 ```
 >>> stack = ['a','b']
@@ -99,9 +99,9 @@ Example:
 ```
 
 
-# Numpy
+## Numpy
 
-## Transform a row to a column
+### Transform a row to a column
 
 Transform a row to a column:
 
@@ -116,7 +116,7 @@ a = np.array([1, 2, 3])
 a[:, None]
 ```
 
-## numpy.empty_like
+### numpy.empty_like
 
 `numpy.empty_like(a, dtype=None, order='K', subok=True)` Return a new array with the same shape and type as a given array. 
 
@@ -135,7 +135,7 @@ array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000],#random
 
 [Ref](https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.empty_like.html)
 
-## Load multiple images
+### Load multiple images
 
 ```
 from PIL import Image
@@ -149,7 +149,7 @@ import pickle
 pickle.dump( x, filehandle, protocol=2 )
 ```
 
-## numpy.squeeze
+### numpy.squeeze
 
 `numpy.squeeze(a, axis=None)[source]` Remove single-dimensional entries from the shape of an array.
 
@@ -169,7 +169,7 @@ ValueError: cannot select an axis to squeeze out which has size not equal to one
 (1, 3)
 ```
 
-## numpy.expand_dims
+### numpy.expand_dims
 
 ```
 >>> x = np.array([1,2])
@@ -208,7 +208,7 @@ print(gray_tmp.shape)
 ```
 
 
-## Create image from array
+### Create image from array
 
 ```
 from PIL import Image
@@ -222,7 +222,7 @@ img.save('my.png')
 img.show()
 ```
 
-## RGB2Gray
+### RGB2Gray
 
 The rgb2gray formula is:
 
@@ -247,7 +247,7 @@ plt.show()
 ```
 
 
-## numpy.concatenate
+### numpy.concatenate
 
 `numpy.concatenate((a1, a2, ...), axis=0)` Join a sequence of arrays along an existing axis.
 
@@ -265,7 +265,7 @@ array([[1, 2, 5],
        [3, 4, 6]])
 ```
 
-## numpy.mean
+### numpy.mean
 
 Syntax:
 
@@ -283,7 +283,7 @@ array([ 2.,  3.])
 array([ 1.5,  3.5])
 ```
 
-## numpy.ndarray.astype
+### numpy.ndarray.astype
 
 Syntax:
 
@@ -299,7 +299,7 @@ array([ 1. ,  2. ,  2.5])
 array([1, 2, 2])
 ```
 
-## numpy.amax
+### numpy.amax
 
 ```
 >>> a = np.arange(4).reshape((2,2))
@@ -314,7 +314,7 @@ array([2, 3])
 array([1, 3])
 ```
 
-## numpy.divide
+### numpy.divide
 
 ```
 >>> np.divide(2.0, 4.0)
@@ -327,16 +327,16 @@ array([[ NaN,  1. ,  1. ],
        [ Inf,  7. ,  4. ]])
 ```
 
-## numpy.mean
+### numpy.mean
 
 
-## numpy.maximum
+### numpy.maximum
 
-## numpy.absolute
+### numpy.absolute
 
 # Tensorflow
 
-## tf.image.resize_images
+### tf.image.resize_images
 
 `tf.image.resize_images` to resize images.
 

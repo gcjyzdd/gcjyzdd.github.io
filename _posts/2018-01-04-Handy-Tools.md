@@ -161,3 +161,9 @@ using:
 sed -i 's/"assets/site\.baseurl}}\/assets/g'
 sed -i 's/"\s|\sabsolute_url}}//g'
 ```
+
+## Notepad++
+
+1. Shift highlighted lines to the right one tab length by pressing the tab key. 
+2. Shift them to the left by pressing shift-tab.
+

@@ -56,6 +56,56 @@ categories: OpenCV TCP Socket ImageProcessing
 
 ## Compress Images
 
+My final code block:
+```cpp
+	std::string pic("BMW_M6_G-power_1082_1280x960.jpg");
+		Mat img;
+
+		img = imread(pic.c_str(), IMREAD_COLOR);
+		namedWindow("Display window", WINDOW_AUTOSIZE); // Create a window for display.
+		imshow("Display window", img);                // Show our image inside it.
+
+		waitKey(0); //
+
+		uchar *ptr = img.data;
+		int len = img.rows * img.cols * img.channels();
+		std::cout << "size of image: " << "  " << len << std::endl;
+
+		printf("\n");
+
+		//************Compress images*********
+		std::vector<uchar> buff;//buffer for coding
+		std::vector<int> param(2);
+		param[0] = cv::IMWRITE_JPEG_QUALITY;
+		param[1] = 80;//default(95) 0-100
+		
+
+		auto start = std::chrono::high_resolution_clock::now();
+
+		cv::imencode(".jpeg", img, buff, param);
+
+		auto finish = std::chrono::high_resolution_clock::now();
+		float te = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+		printf("Compression Consumes %2.3fms\n", te);
+
+		std::cout << "Compressed Length = "<< buff.size() << std::endl;
+
+		uchar* imageBuf;
+		//imageBuf = (unsigned char *)realloc(imageBuf, buff.size());
+		//memcpy(imageBuf, &buff[0], buff.size());
+
+		cv::Mat imgbuf = Mat(1280, 960, CV_8UC3, buff.data());
+		cv::Mat imgMat = cv::imdecode(Mat(buff), CV_LOAD_IMAGE_COLOR);
+		std::cout << "de size =  "<< imgMat.rows*imgMat.cols*imgMat.channels() <<std::endl;
+		//Mat dec;
+		//dec = imdecode(buff, cv::IMREAD_COLOR);
+		namedWindow("Display window2", WINDOW_AUTOSIZE);
+		imshow("Display window2", imgMat);
+		waitKey(0); //
+```
+
+References from internet:
+
 ```cpp
     std::vector<uchar> buff;//buffer for coding
     std::vector<int> param(2);

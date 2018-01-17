@@ -56,6 +56,7 @@ categories: OpenCV TCP Socket ImageProcessing
 
 ## Compress Images
 
+<<<<<<< HEAD
 My final code block:
 ```cpp
 	std::string pic("BMW_M6_G-power_1082_1280x960.jpg");
@@ -106,6 +107,8 @@ My final code block:
 
 References from internet:
 
+=======
+>>>>>>> dev
 ```cpp
     std::vector<uchar> buff;//buffer for coding
     std::vector<int> param(2);
@@ -164,6 +167,7 @@ main(int argc, char **argv)
 //  size of imageBuf is buf.size();
 ```
 
+<<<<<<< HEAD
 ```py
 >>> img_str = cv2.imencode('.jpg', img)[1].tostring()
 >>> type(img_str)
@@ -173,6 +177,9 @@ main(int argc, char **argv)
 >>> nparr = np.fromstring(STRING_FROM_DATABASE, np.uint8)
 >>> img = cv2.imdecode(nparr, cv2.CV_LOAD_IMAGE_COLOR)
 ```
+=======
+
+>>>>>>> dev
 
 [Ref1](https://stackoverflow.com/questions/33535151/compress-mat-into-jpeg-and-save-the-result-into-memory)
 
@@ -180,4 +187,7 @@ main(int argc, char **argv)
 
 [https://stackoverflow.com/questions/801199/opencv-to-use-in-memory-buffers-or-file-pointers](https://stackoverflow.com/questions/801199/opencv-to-use-in-memory-buffers-or-file-pointers)
 
+<<<<<<< HEAD
 [https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string](https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string)
+=======
+>>>>>>> dev

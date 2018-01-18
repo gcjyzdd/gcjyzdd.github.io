@@ -42,6 +42,9 @@ categories: OpenCV TCP Socket ImageProcessing
 
 ## Using sockets on Linux
 
+REF:
+[http://www.binarytides.com/server-client-example-c-sockets-linux/](http://www.binarytides.com/server-client-example-c-sockets-linux/)
+
 ### Refs
 
 [https://stackoverflow.com/questions/15445207/sending-image-jpeg-through-socket-in-c-linux](https://stackoverflow.com/questions/15445207/sending-image-jpeg-through-socket-in-c-linux)

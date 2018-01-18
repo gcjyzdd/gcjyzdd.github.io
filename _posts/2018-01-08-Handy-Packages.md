@@ -12,4 +12,5 @@ Software:
 * silversearch ag
 * mediainfo
 * gimp
+* umlet: UML graphics
 

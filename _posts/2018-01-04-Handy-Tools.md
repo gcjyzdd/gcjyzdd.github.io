@@ -167,3 +167,8 @@ sed -i 's/"\s|\sabsolute_url}}//g'
 1. Shift highlighted lines to the right one tab length by pressing the tab key. 
 2. Shift them to the left by pressing shift-tab.
 
+## Visual Studio
+
+To format a selection: `Ctrl`+`K`, `Ctrl`+`F`
+
+To format a document: `Ctrl`+`K`, `Ctrl`+`D`

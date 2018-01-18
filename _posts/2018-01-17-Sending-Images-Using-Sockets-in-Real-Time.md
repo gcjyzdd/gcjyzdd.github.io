@@ -166,7 +166,6 @@ main(int argc, char **argv)
 //  size of imageBuf is buf.size();
 ```
 
-<<<<<<< HEAD
 ```py
 >>> img_str = cv2.imencode('.jpg', img)[1].tostring()
 >>> type(img_str)

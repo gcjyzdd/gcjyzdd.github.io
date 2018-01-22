@@ -193,3 +193,8 @@ main(int argc, char **argv)
 
 [https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string](https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string)
 
+## Sppedup decode and encode using libjpg-turbo
+
+Ref:
+
+[http://unanancyowen.com/en/opencv-with-libjpeg-turbo/](http://unanancyowen.com/en/opencv-with-libjpeg-turbo/)

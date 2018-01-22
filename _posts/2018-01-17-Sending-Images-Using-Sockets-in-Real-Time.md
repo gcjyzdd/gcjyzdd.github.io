@@ -193,7 +193,37 @@ main(int argc, char **argv)
 
 [https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string](https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string)
 
-## Sppedup decode and encode using libjpg-turbo
+## Sppedup decode and encode using libjpeg-turbo
+
+### Build libjpeg-turbo
+
+Install `NASM` and `autoconf`:
+
+```sh
+sudo apt-get install nasm
+sudo apt-get install autoconf
+```
+
+Download the source, run
+
+```sh
+autoconf -fiv 
+mkdir build
+cd build
+sh ../configure
+make
+sudo make install
+```
+
+### Build cmake libjpeg-turbo 
+
+```sh
+cd opencv
+mkdir build
+cmake -DJPEG_LIBRARY=/opt//opt/libjpeg-turbo/lib64/liblibjpeg.so 
+make -j12
+sudo make install
+```
 
 Ref:
 

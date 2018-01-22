@@ -6,7 +6,7 @@ categories: OpenCV Matlab
 
 ## Compile C++ OpenCV Code in Matlab
 
-Use `mex` to compile C++ code with external dependencies:
+Use `mex` to compile C++ code with external dependencies([Ref](https://sites.google.com/site/georgeevangelidis/matlab_opencv)):
 ```matlab
 OCVRoot = 'C:\Users\guanc\Downloads\opencv\build';
 IPath = ['-I',fullfile(OCVRoot,'include')];
@@ -15,7 +15,7 @@ lib1 = fullfile(LPath,'opencv_world340.lib');
 lib2 = fullfile(LPath,'cxcore210d.lib');
 
 
->>>
+>>>mex('encodeImageOCV.cpp', IPath, lib1)
 Building with 'Microsoft Visual C++ 2015 Professional'.
 MEX completed successfully.
 ```
@@ -23,8 +23,8 @@ MEX completed successfully.
 Call `OpenCV` function to display `matlab` array as an image:
 
 ```cpp
-/*==========================================================
- * encodeImage.cpp -an interface encoding image using OpenCV
+/*=============================================================
+ * encodeImageOCV.cpp -an interface encoding image using OpenCV
  *
  *
  *
@@ -32,7 +32,7 @@ Call `OpenCV` function to display `matlab` array as an image:
  * Author: Changjie Guan<changjie.guan@tassinternational.com>
  * Date: Jan 19, 2018
  *
- *========================================================*/
+ *===========================================================*/
 
 #include<stdio.h>
 
@@ -95,7 +95,7 @@ tmp =imread('CAPTURE2.JPEG');
 % prepare data for OpenCV
 tmp3 = permute(tmp(:,:,[3 2 1]), [3,2,1]);
 % display image using OpenCV
-encodeImageOCV_Changjie(tmp3);
+encodeImageOCV(tmp3);
 ```
 
 You will see a correct image display.

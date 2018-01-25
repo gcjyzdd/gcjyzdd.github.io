@@ -46,6 +46,36 @@ Have a look at the image above with labeled axes, where I've drawn some bounding
 bboxes = [((x1, y1), (x2, y2)), ((,),(,)), ...]
 ```
 
+```py
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+image = mpimg.imread('../data/bbox-example-image.jpg')
+
+# Define a function that takes an image, a list of bounding boxes,
+# and optional color tuple and line thickness as inputs
+# then draws boxes in that color on the output
+
+def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
+    # make a copy of the image
+    draw_img = np.copy(img)
+    # draw each bounding box on your image copy using cv2.rectangle()
+    # return the image copy with boxes drawn
+
+    for i in range(len(bboxes)):
+        cv2.rectangle(draw_img,bboxes[i][0], bboxes[i][1], color=color,
+                      thickness=thick)
+    return draw_img # Change this line to return image copy with boxes
+# Add bounding boxes in this format, these are just example coordinates.
+bboxes = [((100, 100), (200, 200)), ((300, 300), (400, 400))]
+
+result = draw_boxes(image, bboxes)
+plt.imshow(result)
+plt.show()
+```
+
 ## Template Matching
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/bbox-example-image.jpg' /></div>
@@ -81,6 +111,73 @@ In the second image, all of the same six cars are visible (just a few seconds la
 1. Write a function that takes in an image and list of templates and returns a list of bounding boxes.
 2. Find that your function works well to locate the six example templates taken from the first image.
 3. Try your code on the second image, and find that template matching breaks easily.
+
+```py
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+image = mpimg.imread('../data/bbox-example-image.jpg')
+# image = mpimg.imread('temp-matching-example-2.jpg')
+templist = ['cutout1.jpg', 'cutout2.jpg', 'cutout3.jpg',
+            'cutout4.jpg', 'cutout5.jpg', 'cutout6.jpg']
+
+templist = ['../data/cutouts/'+a for a in templist]
+
+# Here is your draw_boxes function from the previous exercise
+def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
+    # Make a copy of the image
+    imcopy = np.copy(img)
+    # Iterate through the bounding boxes
+    for bbox in bboxes:
+        # Draw a rectangle given bbox coordinates
+        cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
+    # Return the image copy with boxes drawn
+    return imcopy
+
+
+# Define a function that takes an image and a list of templates as inputs
+# then searches the image and returns the a list of bounding boxes
+# for matched templates
+def find_matches(img, template_list):
+    # Make a copy of the image to draw on
+    im_copy = np.copy(img)
+    # Define an empty list to take bbox coords
+    bbox_list = []
+    # Iterate through template list
+    # Read in templates one by one
+    # Use cv2.matchTemplate() to search the image
+    #     using whichever of the OpenCV search methods you prefer
+    # Use cv2.minMaxLoc() to extract the location of the best match
+    # Determine bounding box corners for the match
+    # Return the list of bounding boxes
+    for imp in template_list:
+        im_templ = mpimg.imread(imp)
+        h = im_templ.shape[0]
+        w = im_templ.shape[1]
+
+        result = cv2.matchTemplate(im_copy, im_templ, cv2.TM_SQDIFF)
+
+        result = np.abs(result) ** 3
+        val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
+        result8 = cv2.normalize(result, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+        cv2.imshow("result", result8)
+
+        minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
+        bbox_list.append(((minLoc[0],minLoc[1]),(minLoc[0]+w, minLoc[1]+h)))
+
+    return bbox_list
+
+
+bboxes = find_matches(image, templist)
+result = draw_boxes(image, bboxes)
+plt.imshow(result)
+plt.show()
+```
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/template_match_result1.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/bad_detect_tm.png' /></div>
 
 
 

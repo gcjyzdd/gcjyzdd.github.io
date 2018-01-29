@@ -816,3 +816,279 @@ In the exercise below, you're given all the code to extract HOG features and tra
 
 **Note**: `hog_channel` can take values of 0, 1, 2, or "ALL", meaning that you extract HOG features from the first, second, third, or all color channels respectively.
 
+## How many windows?
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/car-identified.jpg' /></div>
+
+To implement a sliding window search, you need to decide what size window you want to search, where in the image you want to start and stop your search, and how much you want windows to overlap. So, let's try an example to see how many windows we would be searching given a particular image size, window size, and overlap.
+
+Suppose you have an image that is 256 x 256 pixels and you want to search windows of a size 128 x 128 pixels each with an overlap of 50% between adjacent windows in both the vertical and horizontal dimensions. Your sliding window search would then look like this:
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/sliding-window.jpg' /></div>
+
+### Test
+
+1280x960, sample window 64x64, overlapping 50%, it needs to search
+
+(1280/(64 * 0.5) - 1) * (960/(64 * 0.5) - 1=1131)
+
+times.
+
+## Sliding Window Implementation
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/sliding-window.jpg' /></div>
+
+In the last exercise, you saw how the number of windows scales with image size, window size, and overlap. In the project it will be useful to have a function to perform a sliding window search on an image, so let's write one! This will just be the first iteration, where you don't actually need to do anything besides plot a rectangle at each window position.
+
+So, your goal here is to write a function that takes in an image, start and stop positions in both x and y (imagine a bounding box for the entire search region), window size (x and y dimensions), and overlap fraction (also for both x and y). Your function should return a list of bounding boxes for the search windows, which will then be passed to draw `draw_boxes()` function.
+
+## Multi-scale Windows
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/Screenshot from 2018-01-29 20-59-18.png' /></div>
+
+Multi-scale windows:
+
+* search ROI
+* small sizes near horizontal, large near bottom
+
+## Search and Classify
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/bbox-example-image.jpg' /></div>
+
+Now you're able to run a sliding window search on an image and you've trained a classifier... time to combine both steps and search for cars!
+
+You already have all the tools you need to do this from the previous exercises. Just train your classifier, then run your sliding window search, extract features, and predict whether each window contains a car or not. You'll probably find some false positives, but soon we'll deal with removing them.
+
+In the `lesson_functions.py` tab on the quiz editor, you'll find all the functions we've defined so far in the lesson, including `get_hog_features()`, `bin_spatial()`, `color_hist()`, `extract_features()`, `slide_window()`, and `draw_boxes()`. These are now all imported for use in the quiz with this command:
+
+```py
+from lesson_functions import *
+```
+
+Two new functions are defined: `single_img_features()` and `search_windows()`. You can use these to search over all the windows defined by your `slide_windows()`, extract features at each window position, and predict with your classifier on each set of features.
+
+We have limited the sample size to 500 each of car and not-car training images for the classifier to avoid quiz evaluator timeout, but if you search a very large number of windows or create huge feature vectors, you still may run into timeout issues. If you want to explore more, download the data and try the code on your local machine.
+
+You can download the subset of data used in this lesson for vehicles and non-vehicles, or if you prefer, you can directly grab the larger project dataset for vehicles and non-vehicles.
+
+In this exercise, experiment with different color and gradient feature sets, different search window sizes and overlap to get an idea of how your classifier performs with different training features. Getting false positives in the skies and treetops? Try restricting your search area on the image with `y_start_stop` in the `slide_window()` function. What combination of features works best?
+
+```py
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+import glob
+import time
+from sklearn.svm import LinearSVC
+from sklearn.preprocessing import StandardScaler
+from skimage.feature import hog
+from lesson_functions import *
+# NOTE: the next import is only valid for scikit-learn version <= 0.17
+# for scikit-learn >= 0.18 use:
+# from sklearn.model_selection import train_test_split
+from sklearn.cross_validation import train_test_split
+
+# Define a function to extract features from a single image window
+# This function is very similar to extract_features()
+# just for a single image rather than list of images
+def single_img_features(img, color_space='RGB', spatial_size=(32, 32),
+                        hist_bins=32, orient=9, 
+                        pix_per_cell=8, cell_per_block=2, hog_channel=0,
+                        spatial_feat=True, hist_feat=True, hog_feat=True):    
+    #1) Define an empty list to receive features
+    img_features = []
+    #2) Apply color conversion if other than 'RGB'
+    if color_space != 'RGB':
+        if color_space == 'HSV':
+            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+        elif color_space == 'LUV':
+            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
+        elif color_space == 'HLS':
+            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
+        elif color_space == 'YUV':
+            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)
+        elif color_space == 'YCrCb':
+            feature_image = cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
+    else: feature_image = np.copy(img)      
+    #3) Compute spatial features if flag is set
+    if spatial_feat == True:
+        spatial_features = bin_spatial(feature_image, size=spatial_size)
+        #4) Append features to list
+        img_features.append(spatial_features)
+    #5) Compute histogram features if flag is set
+    if hist_feat == True:
+        hist_features = color_hist(feature_image, nbins=hist_bins)
+        #6) Append features to list
+        img_features.append(hist_features)
+    #7) Compute HOG features if flag is set
+    if hog_feat == True:
+        if hog_channel == 'ALL':
+            hog_features = []
+            for channel in range(feature_image.shape[2]):
+                hog_features.extend(get_hog_features(feature_image[:,:,channel], 
+                                    orient, pix_per_cell, cell_per_block, 
+                                    vis=False, feature_vec=True))      
+        else:
+            hog_features = get_hog_features(feature_image[:,:,hog_channel], orient, 
+                        pix_per_cell, cell_per_block, vis=False, feature_vec=True)
+        #8) Append features to list
+        img_features.append(hog_features)
+
+    #9) Return concatenated array of features
+    return np.concatenate(img_features)
+
+# Define a function you will pass an image 
+# and the list of windows to be searched (output of slide_windows())
+def search_windows(img, windows, clf, scaler, color_space='RGB', 
+                    spatial_size=(32, 32), hist_bins=32, 
+                    hist_range=(0, 256), orient=9, 
+                    pix_per_cell=8, cell_per_block=2, 
+                    hog_channel=0, spatial_feat=True, 
+                    hist_feat=True, hog_feat=True):
+
+    #1) Create an empty list to receive positive detection windows
+    on_windows = []
+    #2) Iterate over all windows in the list
+    for window in windows:
+        #3) Extract the test window from original image
+        test_img = cv2.resize(img[window[0][1]:window[1][1], window[0][0]:window[1][0]], (64, 64))      
+        #4) Extract features for that window using single_img_features()
+        features = single_img_features(test_img, color_space=color_space, 
+                            spatial_size=spatial_size, hist_bins=hist_bins, 
+                            orient=orient, pix_per_cell=pix_per_cell, 
+                            cell_per_block=cell_per_block, 
+                            hog_channel=hog_channel, spatial_feat=spatial_feat, 
+                            hist_feat=hist_feat, hog_feat=hog_feat)
+        #5) Scale extracted features to be fed to classifier
+        test_features = scaler.transform(np.array(features).reshape(1, -1))
+        #6) Predict using your classifier
+        prediction = clf.predict(test_features)
+        #7) If positive (prediction == 1) then save the window
+        if prediction == 1:
+            on_windows.append(window)
+    #8) Return windows for positive detections
+    return on_windows
+    
+    
+# Read in cars and notcars
+images = glob.glob('*.jpeg')
+cars = []
+notcars = []
+for image in images:
+    if 'image' in image or 'extra' in image:
+        notcars.append(image)
+    else:
+        cars.append(image)
+
+# Reduce the sample size because
+# The quiz evaluator times out after 13s of CPU time
+sample_size = 500
+cars = cars[0:sample_size]
+notcars = notcars[0:sample_size]
+
+### TODO: Tweak these parameters and see how the results change.
+color_space = 'RGB' # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
+orient = 9  # HOG orientations
+pix_per_cell = 8 # HOG pixels per cell
+cell_per_block = 2 # HOG cells per block
+hog_channel = 0 # Can be 0, 1, 2, or "ALL"
+spatial_size = (16, 16) # Spatial binning dimensions
+hist_bins = 16    # Number of histogram bins
+spatial_feat = True # Spatial features on or off
+hist_feat = True # Histogram features on or off
+hog_feat = True # HOG features on or off
+y_start_stop = [None, None] # Min and max in y to search in slide_window()
+
+car_features = extract_features(cars, color_space=color_space, 
+                        spatial_size=spatial_size, hist_bins=hist_bins, 
+                        orient=orient, pix_per_cell=pix_per_cell, 
+                        cell_per_block=cell_per_block, 
+                        hog_channel=hog_channel, spatial_feat=spatial_feat, 
+                        hist_feat=hist_feat, hog_feat=hog_feat)
+notcar_features = extract_features(notcars, color_space=color_space, 
+                        spatial_size=spatial_size, hist_bins=hist_bins, 
+                        orient=orient, pix_per_cell=pix_per_cell, 
+                        cell_per_block=cell_per_block, 
+                        hog_channel=hog_channel, spatial_feat=spatial_feat, 
+                        hist_feat=hist_feat, hog_feat=hog_feat)
+
+X = np.vstack((car_features, notcar_features)).astype(np.float64)                        
+# Fit a per-column scaler
+X_scaler = StandardScaler().fit(X)
+# Apply the scaler to X
+scaled_X = X_scaler.transform(X)
+
+# Define the labels vector
+y = np.hstack((np.ones(len(car_features)), np.zeros(len(notcar_features))))
+
+
+# Split up data into randomized training and test sets
+rand_state = np.random.randint(0, 100)
+X_train, X_test, y_train, y_test = train_test_split(
+    scaled_X, y, test_size=0.2, random_state=rand_state)
+
+print('Using:',orient,'orientations',pix_per_cell,
+    'pixels per cell and', cell_per_block,'cells per block')
+print('Feature vector length:', len(X_train[0]))
+# Use a linear SVC 
+svc = LinearSVC()
+# Check the training time for the SVC
+t=time.time()
+svc.fit(X_train, y_train)
+t2 = time.time()
+print(round(t2-t, 2), 'Seconds to train SVC...')
+# Check the score of the SVC
+print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
+# Check the prediction time for a single sample
+t=time.time()
+
+image = mpimg.imread('bbox-example-image.jpg')
+draw_image = np.copy(image)
+
+# Uncomment the following line if you extracted training
+# data from .png images (scaled 0 to 1 by mpimg) and the
+# image you are searching is a .jpg (scaled 0 to 255)
+#image = image.astype(np.float32)/255
+
+windows = slide_window(image, x_start_stop=[None, None], y_start_stop=y_start_stop, 
+                    xy_window=(96, 96), xy_overlap=(0.5, 0.5))
+
+hot_windows = search_windows(image, windows, svc, X_scaler, color_space=color_space, 
+                        spatial_size=spatial_size, hist_bins=hist_bins, 
+                        orient=orient, pix_per_cell=pix_per_cell, 
+                        cell_per_block=cell_per_block, 
+                        hog_channel=hog_channel, spatial_feat=spatial_feat, 
+                        hist_feat=hist_feat, hog_feat=hog_feat)                       
+
+window_img = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)                    
+
+plt.imshow(window_img)
+
+if 1:
+    dist_pickle = {}
+    dist_pickle["svc"] = svc
+    dist_pickle["scaler"] = X_scaler
+    dist_pickle["orient"] = orient
+    dist_pickle["pix_per_cell"] = pix_per_cell
+    dist_pickle["cell_per_block"] = cell_per_block
+    dist_pickle["spatial_size"] = spatial_size
+    dist_pickle["hist_bins"] = hist_bins
+    pickle.dump(dist_pickle, open("../data/svc_pickle.p", "wb"))
+```
+
+## Hog Sub-sampling Window Search
+
+Now lets explore a more efficient method for doing the sliding window approach, one that allows us to only have to extract the Hog features once. The code below defines a single function `find_cars` that's able to both extract features and make predictions.
+
+The `find_cars` only has to extract hog features once and then can be sub-sampled to get all of its overlaying windows. Each window is defined by a scaling factor where a scale of 1 would result in a window that's 8 x 8 cells then the overlap of each window is in terms of the cell distance. This means that a `cells_per_step = 2` would result in a search window overlap of 75%. Its possible to run this same function multiple times for different scale values to generate multiple-scaled search windows.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/hog-sub.jpg' /></div>
+
+## Multiple Detections & False Positives
+
+Here are six consecutive frames from the project video and I'm showing all the bounding boxes for where my classifier reported positive detections. You can see that overlapping detections exist for each of the two vehicles, and in two of the frames, I find a false positive detection on the guardrail to the left. In this exercise, you'll build a heat-map from these detections in order to combine overlapping detections and remove false positives.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/VDT/screen-shot-2017-01-29-at-2.52.00-pm.png' /></div>
+
+

@@ -172,3 +172,7 @@ sed -i 's/"\s|\sabsolute_url}}//g'
 To format a selection: `Ctrl`+`K`, `Ctrl`+`F`
 
 To format a document: `Ctrl`+`K`, `Ctrl`+`D`
+
+## OBS
+
+Screen recording.

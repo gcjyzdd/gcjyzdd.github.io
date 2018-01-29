@@ -217,6 +217,8 @@ sudo make install
 
 ### Build cmake libjpeg-turbo 
 
+"-DWITH_JPEG=ON", "-DBUILD_JPEG=OFF","-DJPEG_INCLUDE_DIR=/opt/libjpeg-turbo/include", "-DJPEG_LIBRARY=/opt/libjpeg-turbo/lib64/libjpeg.a"]
+
 ```sh
 cd opencv
 mkdir build
@@ -228,3 +230,5 @@ sudo make install
 Ref:
 
 [http://unanancyowen.com/en/opencv-with-libjpeg-turbo/](http://unanancyowen.com/en/opencv-with-libjpeg-turbo/)
+
+[http://answers.opencv.org/question/121175/opencv-32-build-for-ios-with-libjpeg-turbo-to-be-used-with-qt/](http://answers.opencv.org/question/121175/opencv-32-build-for-ios-with-libjpeg-turbo-to-be-used-with-qt/)

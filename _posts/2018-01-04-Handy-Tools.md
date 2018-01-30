@@ -5,25 +5,25 @@ title: "Handy Tools"
 categories: Tools
 ---
 
-# Download Youtube
+## Download Youtube
 
 [pytube](https://github.com/nficano/pytube): A lightweight, dependency-free Python library (and command-line utility) for downloading YouTube Videos.
 
-## Usage
+### Usage
 
 ```py
 from pytube import YouTube
 YouTube('https://www.youtube.com/watch?time_continue=25&v=siAMDK8C_x8').streams.first().download()
 ```
 
-## Install
+### Install
 ```sh
 pip install pytube
 ```
 ---
-# PDF
+## PDF
 
-## Combine PDFs
+### Combine PDFs
 
 `pdftk` is a very comvenient tool to process PDFs. 
 
@@ -49,12 +49,12 @@ b11496-13.pdf  b11496-2.pdf   b11496-7.pdf
 b11496-14.pdf  b11496-3.pdf   b11496-8.pdf
 ```
 
-## Crop PDF
+### Crop PDF
 
 ---
-# tmux
+## tmux
 
-## Basic Usage
+### Basic Usage
 
 Split windows vertically:
 ```
@@ -106,7 +106,7 @@ Close a window:
 `Ctrl-b` then `[` then you can use your normal navigation keys to scroll around (eg. `Up Arrow` or `PgDn`). Press `q` to quit scroll mode.
 
 ---
-# Crop Video using FFMPEG
+## Crop Video using FFMPEG
 
 Use the crop filter:
 ```
@@ -122,7 +122,34 @@ Where the options are as follows:
 [Ref](https://video.stackexchange.com/questions/4563/how-can-i-crop-a-video-with-ffmpeg)
 
 
-# sed - replace file in place
+## Cut videos using FFMPEG
+
+Try using this. It is the fastest and best ffmpeg-way I have figure it out:
+
+```sh
+ ffmpeg -i input.mp4 -ss 00:01:00 -to 00:02:00 -c copy output.mp4
+```
+ 
+**This command trims your video in seconds!**
+
+I have explained it on my blog [here](http://blog.georgechalhoub.com/2017/03/trimming-videos-via-ffmpeg.html):
+
+* `i`: This specifies the input file. In that case, it is (input.mp4). 
+* `ss`: Used with -i, this seeks in the input file (input.mp4) to position. 
+* `00:01:00`: This is the time your trimmed video will start with. 
+* `to`: This specifies duration from start (00:01:40) to end (00:02:12). 
+* `00:02:00`: This is the time your trimmed video will end with. 
+* `c copy`: This is an option to trim via stream copy. (NB: Very fast) 
+
+The timing format is: hh:mm:ss
+
+Please note that the current highly upvoted answer is outdated and the trim would be extremely slow. For more information, look at this official ffmpeg [article](https://trac.ffmpeg.org/wiki/Seeking#Cuttingsmallsections).
+
+[Ref](https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg)
+
+
+---
+## sed - replace file in place
 
 Replace 
 
@@ -172,6 +199,15 @@ sed -i 's/"\s|\sabsolute_url}}//g'
 To format a selection: `Ctrl`+`K`, `Ctrl`+`F`
 
 To format a document: `Ctrl`+`K`, `Ctrl`+`D`
+
+## PyCharm
+
+Auto-indent code:
+
+```
+Ctrl A
+Ctrl Alt L
+```
 
 ## OBS
 

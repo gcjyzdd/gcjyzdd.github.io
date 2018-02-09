@@ -213,3 +213,12 @@ Ctrl Alt L
 ## OBS
 
 Screen recording.
+
+## Vim
+
+Add a '*' at the end of each line:
+
+```sh
+:%s/$/\*/g
+```
+

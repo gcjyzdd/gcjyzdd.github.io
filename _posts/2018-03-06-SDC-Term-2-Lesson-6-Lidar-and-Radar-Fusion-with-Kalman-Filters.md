@@ -420,5 +420,30 @@ which is nonlinear:
 
 <div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-07 23-49-43.png' /></div>
 
+## EKF
 
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/screenshot-from-2017-02-27-19-06-36.png' /></div>
+
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/screenshot-from-2017-02-27-19-08-41.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-09-16.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-11-29.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-12-49.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-14-45.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-15-15.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-15-27.png' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/algorithm-generalization-900.jpg' /></div>
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-46-54.png' /></div>
+
+## Sensor Fusion General Flow
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-08 20-50-41.png' /></div>
 

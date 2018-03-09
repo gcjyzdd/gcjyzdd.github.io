@@ -15,3 +15,10 @@ title: Matlab/Simulink Notes
 
 <div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/selector.png' /></div>
 
+### Rate Limiter
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/rate_limiter.png' /></div>
+
+### Detect Change
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/detect_change.png' /></div>

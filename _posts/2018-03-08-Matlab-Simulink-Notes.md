@@ -22,3 +22,8 @@ title: Matlab/Simulink Notes
 ### Detect Change
 
 <div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/detect_change.png' /></div>
+
+
+### Interpreted Matlab Function
+
+<div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/interpreted_fcn.png' /></div>

@@ -148,6 +148,12 @@ Please note that the current highly upvoted answer is outdated and the trim woul
 [Ref](https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg)
 
 
+## Compress videos using ffmpeg
+
+```
+ffmpeg -i input.mp4 -vcodec h264 -acodec mp2 output.mp4
+```
+
 ---
 ## sed - replace file in place
 

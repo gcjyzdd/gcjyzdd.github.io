@@ -76,7 +76,59 @@ Since yaw rate is zero, the vehicle is moving straightly. As a result, it's very
 
 ## CTRV Process Noise Position
 
-<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-13 22-57-16.png' /></div>
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-13 22-57-16.png' /></div> 
+
+We approximate that the vehicle is going perfectly straight and simplify the noise of position x and y.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 21-40-08.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 21-40-25.png' /></div> 
+
+## UKF Process Chain
+
+Unscented Kalman Filter Introduction
+Now that you have learned the CTRV motion model equations, we will discuss how the unscented Kalman filter works. As you go through the lectures, recall that the extended Kalman filter uses the Jacobian matrix to linearize non-linear functions.
+
+The unscented Kalman filter, on the other hand, does not need to linearize non-linear functions; instead, the unscented Kalman filter takes representative points from a Gaussian distribution. These points will be plugged into the non-linear equations as you'll see in the lectures.
+
+**Unscented transform**
+
+## What Problem Does the UKF Solve?
+
+<div style="text-align:center"><iframe width="560" height="315" src="https://www.youtube.com/embed/OFb47Lu9JfM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-07-27.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-12-39.png' /></div> 
+
+## UKF Basics Unscented Transform
+
+<div style="text-align:center"><iframe width="560" height="315" src="https://www.youtube.com/embed/8jbckHQDl4A" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-15-38.png' /></div> 
+
+1. A good way to choose sigma points
+2. How to predict the sigma points
+3. Calculate the prediction mean and covariance
+
+## Generating Sigma Points
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-20-54.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-23-05.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-24-19.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-25-43.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-26-05.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-28-37.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-31-31.png' /></div> 
+
+
+
 
 
 

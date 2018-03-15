@@ -127,9 +127,132 @@ The unscented Kalman filter, on the other hand, does not need to linearize non-l
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-14 22-31-31.png' /></div> 
 
+## Generating Sigma Points
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 21-26-51.png' /></div> 
+
+* [Eigen Quick Reference Guide](https://eigen.tuxfamily.org/dox/group__QuickRefPage.html)
+* [Eigen Documentation of Cholesky Decomposition](https://eigen.tuxfamily.org/dox/classEigen_1_1LLT.html)
+
+Please note that the algorithm used in the quiz `(P.llt().matrixL())` produces the lower triangular matrix `L` of the matrix `P` such that `P = L*L^`.
+
+```cpp
+#include <iostream>
+#include "ukf.h"
+
+UKF::UKF() {
+  //TODO Auto-generated constructor stub
+  Init();
+}
+
+UKF::~UKF() {
+  //TODO Auto-generated destructor stub
+}
+
+void UKF::Init() {
+
+}
+
+/*******************************************************************************
+* Programming assignment functions: 
+*******************************************************************************/
 
 
+void UKF::GenerateSigmaPoints(MatrixXd* Xsig_out) {
 
+  //set state dimension
+  int n_x = 5;
+
+  //define spreading parameter
+  double lambda = 3 - n_x;
+
+  //set example state
+  VectorXd x = VectorXd(n_x);
+  x <<   5.7441,
+         1.3800,
+         2.2049,
+         0.5015,
+         0.3528;
+
+  //set example covariance matrix
+  MatrixXd P = MatrixXd(n_x, n_x);
+  P <<     0.0043,   -0.0013,    0.0030,   -0.0022,   -0.0020,
+          -0.0013,    0.0077,    0.0011,    0.0071,    0.0060,
+           0.0030,    0.0011,    0.0054,    0.0007,    0.0008,
+          -0.0022,    0.0071,    0.0007,    0.0098,    0.0100,
+          -0.0020,    0.0060,    0.0008,    0.0100,    0.0123;
+
+  //create sigma point matrix
+  MatrixXd Xsig = MatrixXd(n_x, 2 * n_x + 1);
+
+  //calculate square root of P
+  MatrixXd A = P.llt().matrixL();
+
+/*******************************************************************************
+ * Student part begin
+ ******************************************************************************/
+
+  //your code goes here 
+  
+  //calculate sigma points ...
+  //set sigma points as columns of matrix Xsig
+  Xsig.col(0) = x;
+
+  float a = std::sqrt(3);
+
+  for(size_t i=0; i<n_x; i++)
+  {
+	  Xsig.col(1+i) = x + a*A.col(i);
+  }
+  for(size_t i=0; i<n_x; i++)
+  {
+	  Xsig.col(6+i) = x - a*A.col(i);
+  }
+/*******************************************************************************
+ * Student part end
+ ******************************************************************************/
+
+  //print result
+  //std::cout << "Xsig = " << std::endl << Xsig << std::endl;
+
+  //write result
+  *Xsig_out = Xsig;
+
+
+/* expected result:
+   Xsig =
+    5.7441  5.85768   5.7441   5.7441   5.7441   5.7441  5.63052   5.7441   5.7441   5.7441   5.7441
+      1.38  1.34566  1.52806     1.38     1.38     1.38  1.41434  1.23194     1.38     1.38     1.38
+    2.2049  2.28414  2.24557  2.29582   2.2049   2.2049  2.12566  2.16423  2.11398   2.2049   2.2049
+    0.5015  0.44339 0.631886 0.516923 0.595227   0.5015  0.55961 0.371114 0.486077 0.407773   0.5015
+    0.3528 0.299973 0.462123 0.376339  0.48417 0.418721 0.405627 0.243477 0.329261  0.22143 0.286879
+*/
+
+}
+```
+
+## UKF Augmentation
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 21-57-24.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 21-58-22.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 21-59-41.png' /></div> 
+
+## Augmentation Assignment
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 22-06-57.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 22-07-16.png' /></div> 
+
+
+## Sigma Point Prediction
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 22-30-22.png' /></div> 
+
+## Sigma Point Prediction Assignment
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-15 22-37-55.png' /></div> 
 
 
 

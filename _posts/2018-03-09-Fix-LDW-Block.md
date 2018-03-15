@@ -41,6 +41,12 @@ Take distortion into consideration:
 * Image height = 720px
 * Image width = 960px
 
+### Camera specs
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/tass/cam_specs.png' /></div>
+
+$$f_x = 960/6.4\times7.5 = 1125, f_y = 720/4.8\times7.5 = 1125$$.
+
 ### Calibration
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/tass/initFrame.jpg' /></div>

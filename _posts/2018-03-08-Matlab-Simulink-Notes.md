@@ -27,3 +27,25 @@ title: Matlab/Simulink Notes
 ### Interpreted Matlab Function
 
 <div style="text-align:center"><img width='100%' src ='{{site.baseurl}}/assets/tass/interpreted_fcn.png' /></div>
+
+## Warnings
+
+Dsiable warning of increasing array size in loop:
+
+```matlab
+output_postfix =[num2str(plot_idx) '_' output_postfix]; %#ok<AGROW>
+```
+
+## Matlab Class
+
+### Enumeration to char/string
+
+```matlab
+>> a=char(report.processFuns.TSR_ENUM_GT.Electronic5)
+a =
+Electronic5
+>> class(a)
+ans =
+char
+```
+

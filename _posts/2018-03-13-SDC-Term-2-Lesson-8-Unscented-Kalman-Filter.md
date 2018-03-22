@@ -288,6 +288,39 @@ void UKF::GenerateSigmaPoints(MatrixXd* Xsig_out) {
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-21 22-58-45.png' /></div> 
 
+## Parameters and Consistency
 
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-29-55.png' /></div> 
 
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-30-54.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-32-07.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-33-17.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-33-57.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-34-21.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-34-58.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-36-47.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-37-50.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-38-20.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-38-53.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-44-55.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 22-52-33.png' /></div> 
+
+## What to expect from the project
+
+<div style="text-align:center"><iframe width="560" height="315" src="https://www.youtube.com/embed/WAt_g6HgYvs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 23-00-14.png' /></div> 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-03-22 23-00-29.png' /></div> 
 

@@ -7,6 +7,21 @@ author: "C. Guan"
 permalink: /:year/:categories/:title.html
 ---
 
+## Install
+
+
+```sh
+# install dependencies
+sudo apt-get install ruby ruby-dev make build-essential
+gem install jekyll bundler
+```
+
+## Install dependencies for Jekyll
+
+```sh
+bundle install 
+```
+
 ## Create new project
 ---
 

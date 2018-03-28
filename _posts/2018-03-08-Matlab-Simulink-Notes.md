@@ -36,7 +36,7 @@ Dsiable warning of increasing array size in loop:
 output_postfix =[num2str(plot_idx) '_' output_postfix]; %#ok<AGROW>
 ```
 
-## Matlab Class
+## Matlab
 
 ### Enumeration to char/string
 
@@ -47,5 +47,12 @@ Electronic5
 >> class(a)
 ans =
 char
+```
+
+### Stop debug mode
+
+```
+dbquit
+dbquit all
 ```
 

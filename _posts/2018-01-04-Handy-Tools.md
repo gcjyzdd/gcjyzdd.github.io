@@ -154,6 +154,12 @@ Please note that the current highly upvoted answer is outdated and the trim woul
 ffmpeg -i input.mp4 -vcodec h264 -acodec mp2 output.mp4
 ```
 
+## Change video format
+
+```sh
+ffmpeg -i example.mov example.mp4 -hide_banner
+```
+
 ---
 ## sed - replace file in place
 

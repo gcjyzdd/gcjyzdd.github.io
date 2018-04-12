@@ -160,6 +160,35 @@ ffmpeg -i input.mp4 -vcodec h264 -acodec mp2 output.mp4
 ffmpeg -i example.mov example.mp4 -hide_banner
 ```
 
+## Remove audio of a video
+
+```sh
+cat cvtOGV.sh 
+       
+ffmpeg -i $1 \
+   -c:v libx264 -preset veryslow -crf 22 \
+   -c:a aac -b:a 160k -strict -2 \
+   $2       
+
+```
+
+## Combine Videos
+
+3 videos to 2x2:
+
+```sh
+#!/bin/bash
+# combine three videos into one
+
+ffmpeg \
+    -i $1  -i $2 -i $3\
+    -filter_complex 'nullsrc=size=1280x960 [base];[0:v] setpts=PTS-STARTPTS, scale=640x480 [upperleft];[1:v] setpts=PTS-STARTPTS, scale=640x480 [rightupper];[2:v] setpts=PTS-STARTPTS, scale=640x480 [leftlower];[base][upperleft] overlay=shortest=1 [tmp1];[tmp1][rightupper] overlay=shortest=1:x=640 [tmp2];[tmp2][leftlower] overlay=shortest=1:y=480'\
+ -c:v libx264 -c:a libmp3lame -qscale:a 2 -ac 2 -ar 44100 $4
+```
+
+[ref](https://trac.ffmpeg.org/wiki/Create%20a%20mosaic%20out%20of%20several%20input%20videos)
+
+
 ---
 ## sed - replace file in place
 

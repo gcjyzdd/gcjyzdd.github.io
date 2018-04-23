@@ -209,4 +209,32 @@ Now, we apply Bayes' rule, with an additional challenge, the presence of multipl
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-31-30.png' /></div>
 
+## Total Probability and Markov Assumption
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-34-40.png' /></div>
+
+## Markov Assumption for Motion Model: Quiz
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-40-54.png' /></div>
+
+## Markov Assumption for Motion Model: Explanation
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-41-59.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-43-47.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-44-26.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-44-45.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-45-55.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-46-28.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-47-33.png' /></div>
+
+## After Applying Markov Assumption: Quiz
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-55-55.png' /></div>
+
 

@@ -29,7 +29,7 @@ Markov Localization or Bayes Filter for Localization is a generalized filter for
 
 Before we dive into deeper into Markov localization, we should review Bayes' Rule. This will serve as a refresher for those familiar with Bayesian methods and we provide some additional resources for those less familiar.
 
-Recall that Bayes' Rule enables us to determine the conditional probability of a state given evidence P(a|b) by relating it to the conditional probability of the evidence given the state (P(b|a) in the form of:
+Recall that Bayes' Rule enables us to determine the conditional probability of a state given evidence P(a\|b) by relating it to the conditional probability of the evidence given the state (P(b\|a) in the form of:
 
 $$P(a)\times P(b\|a) = P(b)\times P(a\|b)$$
 
@@ -80,4 +80,133 @@ Over the course of this lesson, you’ll build your own Bayes’ filter. In the 
 2. Calculate Bayes' posterior for localization
 3. Initialize a prior belief state
 4. Create a function to initialize a prior belief state given landmarks and assumptions
+
+## Calculate Localization Posterior
+
+To continue developing our intuition for this filter and prepare for later coding exercises, let's walk through calculations for determining posterior probabilities at several pseudo positions x, for a single time step. We will start with a time step after the filter has already been initialized and run a few times. We will cover initialization of the filter in an upcoming concept.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 21-31-14.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 21-32-43.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 21-32-52.png' /></div>
+
+## Initialize Belief State
+
+To help develop an intuition for this filter and prepare for later coding exercises, let's walk through the process of initializing our prior belief state. That is, what values should our initial belief state take for each possible position? Let's say we have a 1D map extending from 0 to 25 meters. We have landmarks at x = 5.0, 10.0, and 20.0 meters, with position standard deviation of 1.0 meter. If we know that our car's initial position is at one of these three landmarks, how should we define our initial belief state?
+
+Since we know that we are parked next to a landmark, we can set our probability of being next to a landmark as 1.0. Accounting for a positon precision of +/- 1.0 meters, this places our car at an initial position in the range 4 - 6 (5 +/- 1), 9 - 11 (10 +/- 1), or 19 - 21 (20 +/- 1). All other positions, not within 1.0 meter of a landmark, are initialized to 0. We normalize these values to a total probability of 1.0 by dividing by the total number of positions that are potentially occupied. In this case, that is 9 positions, 3 for each landmark (the landmark position and one position on either side). This gives us a value of 1.11E-01 for positions +/- 1 from our landmarks (1.0/9). So, our initial belief state is:
+
+```
+{0, 0, 0, 1.11E-01, 1.11E-01, 1.11E-01, 0, 0, 1.11E-01, 1.11E-01, 1.11E-01, 0, 0, 0, 0, 0, 0, 0, 1.11E-01, 1.11E-01, 1.11E-01, 0, 0, 0, 0}
+```
+
+To reinforce this concept, let's practice with a quiz.
+
+* map size: 100 meters
+* landmark positions: {8, 15, 30, 70, 80}
+* position standard deviation: 2 meters
+
+Assuming we are parked next to a landmark, answer the following questions about our initial belief state.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 21-42-39.png' /></div>
+
+## Initialize Priors Function
+
+In this quiz we will create a function that initializes priors (initial belief state for each position on the map) given landmark positions, a position standard deviation (+/- 1.0), and the assumption that our car is parked next to a landmark.
+
+Note that the control standard deviation represents the spread from movement (movement is the result of our control input in this case). We input a control of moving 1 step but our actual movement could be in the range of 1 +/- control standard deviation. The position standard deviation is the spread in our actual position. For example, we may believe start at a particular location, but we could be anywhere in that location +/- our position standard deviation.
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+//initialize priors assumimg vehicle at landmark +/- 1.0 meters position stdev
+std::vector<float> initialize_priors(int map_size, std::vector<float> landmark_positions,
+                                     float control_stdev);
+
+int main() {
+
+    //set standard deviation of position:
+    float control_stdev = 1.0f;
+
+
+    //set map horizon distance in meters 
+    int map_size = 25;
+
+    //initialize landmarks
+    std::vector<float> landmark_positions {5, 10, 20};
+
+    // initialize priors
+    std::vector<float> priors = initialize_priors(map_size, landmark_positions,
+                                                  control_stdev);
+    
+    //print values to stdout 
+    for (unsigned int p = 0; p < priors.size(); p++) {
+        std::cout << priors[p] << endl;
+    }
+        
+    return 0;
+
+};
+
+//TODO: Complete the initialize_priors function
+std::vector<float> initialize_priors(int map_size, std::vector<float> landmark_positions,
+                                     float control_stdev) {
+
+//initialize priors assumimg vehicle at landmark +/- 1.0 meters position stdev
+
+    //YOUR CODE HERE
+  std::vector<float>	priors(map_size,0);
+  float p = 1./(landmark_positions.size() * (1+2*control_stdev));
+    for(int i=0;i<map_size;i++)
+	{
+	  for(size_t j=0;j<landmark_positions.size();j++)
+	  {
+		if(abs((float)i-landmark_positions[j]) <= control_stdev)
+		{
+		  priors[i] = p;
+		}		
+	  }
+	}
+    return priors;
+}
+```
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 22-09-05.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 22-16-03.png' /></div>
+
+## Derivation Outline
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 22-18-59.png' /></div>
+
+
+## Apply Bayes Rule with Additional Conditions
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/06-l-apply-bayes-rule-with-additional-conditions.00-01-30-28.still002.png' /></div>
+
+We aim to estimate state beliefs $$bel(x_t)$$ without the need to carry our entire observation history. We will accomplish this by manipulating our posterior $$p(x_t\|z_{1:t-1},\mu_{1:t},m)$$, obtaining a recursive state estimator. For this to work, we must demonstrate that our current belief $$bel(x_t)$$ can be expressed by the belief one step earlier $$bel(x_{t-1})$$, then use new data to update only the current belief. This recursive filter is known as the Bayes Localization filter or Markov Localization, and enables us to avoid carrying historical observation and motion data. We will achieve this recursive state estimator using Bayes Rule, the Law of Total Probability, and the Markov Assumption.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/06-l-apply-bayes-rule-with-additional-conditions.00-01-48-09.still003.png' /></div>
+
+We take the first step towards our recursive structure by splitting our observation vector $$z_{1:t}$$ into current observations $$z_t$$ and previous information $$z_{1:t-1}$$. 
+
+The posterior can then be rewritten as $$p(x_t\|z_t,z_{1:t-1},u_{1:t}, m)$$.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/06-l-apply-bayes-rule-with-additional-conditions.00-02-12-10.still004.png' /></div>
+
+Now, we apply Bayes' rule, with an additional challenge, the presence of multiple distributions on the right side (likelihood, prior, normalizing constant). How can we best handle multiple conditions within Bayes Rule? As a hint, we can use substitution, where $$x_t$$ is a, and the observation vector at time t, is b. Don’t forget to include $$u$$ and $$m$$ as well.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 22-42-51.png' /></div>
+
+## Bayes Rule and Law of Total Probability
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-31-40.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-31-30.png' /></div>
+
 

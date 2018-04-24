@@ -238,3 +238,174 @@ Now, we apply Bayes' rule, with an additional challenge, the presence of multipl
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-23 23-55-55.png' /></div>
 
 
+## Recursive Structure
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/recursive_structure.png' /></div>
+
+We have achieved a very important step towards the final form of our recursive state estimator. Let’s see why. If we rewrite the second term in our integral to split $$z_{1-t}$$ to $$z_{t-1}$$ and $$z_{t-2}$$ we arrive at a function that is exactly the belief from the previous time step, namely $$bel(x_{t-1})$$.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/14-l-explain-recursive-structure-.00-00-38-09.still002.png' /></div>
+
+Now we can rewrite out integral as the belief of $$x_{t-1}$$.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/14-l-explain-recursive-structure-.00-01-05-00.still003.png' /></div>
+
+The amazing thing is that we have a recursive update formula and can now use the estimated state from the previous time step to predict the current state at t. This is a critical step in a recursive Bayesian filter because it renders us independent from the entire observation and control history. So in the graph structure, we will replace the previous state terms (highlighted) with our belief of the state at x at t -1 (next image).
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/14-l-explain-recursive-structure-.00-01-55-15.still004.png' /></div>
+
+Finally, we replace the integral by a sum over all $$x_i$$ because we have a discrete localization scenario in this case, to get the same formula in Sebastian's lesson for localization. The process of predicting $$x_t$$ with a previous beliefs ($$x_{t-1}$$) and the transition model is technically a convolution. If you take a look to the formula again, it is essential that the belief at $$x_t = 0$$ is initialized with a meaningful assumption. It depends on the localization scenario how you set the belief or in other words, how you initialize your filter. For example, you can use GPS to get a coarse estimate of your location.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/14-l-explain-recursive-structure-.00-02-36-09.still005.png' /></div>
+
+
+Summing up, here is what we have learned so far:
+
+* How to apply the law of total probability by including the new variable $$x_{t-1}$$	 .
+* The Markov assumption, which is very important for probabilistic reasoning, and allows us to make recursive state estimation without carrying our entire history of information
+* How to derive the recursive filter structure. Next you will implement a motion model in C++ and earn how to initialize our localizer.
+
+## Implementation Details
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 17-50-41.png' /></div>
+
+## Determine Probabilities
+
+To implement these models in code, we need a function to which we can pass model parameters/values and return a probability. Fortunately, we can use a normalized probability density function (PDF). Let's revisit Sebastian's discussion of this topic.
+
+We have implemented this Gaussian Distribution as a C++ function, `normpdf`, and will practice using it at the end of this concept. `normpdf` accepts a value, a parameter, and a standard deviation, returning a probability.
+
+Additional Resources for Gaussian Distributions
+
+* [Udacity's Statistics Course content on PDF](https://classroom.udacity.com/courses/st095/lessons/86217921/concepts/1020887710923)
+* [http://mathworld.wolfram.com/NormalDistribution.html](http://mathworld.wolfram.com/NormalDistribution.html)
+* [http://stattrek.com/statistics/dictionary.aspx?definition=Probability_density_function](http://stattrek.com/statistics/dictionary.aspx?definition=Probability_density_function)
+
+Let's practice using `normpdf` to determine transition model probabilities. Specifically, we need to determine the probability of moving from $$x_{t-1}$$ --> $$x_t$$. The value entered into `normpdf` will be the distance between these two positions. We will refer to potential values of these positions as pseudo position and pre-pseudo position. For example, if our pseudo position x is 8 and our pre-pseudo position is 5, our sample value will be 3, and our transition will be from x - 3 --> x.
+
+To calculate our transition model probability, pass any difference in distances into `normpdf` along with our control parameter and position standard deviation.
+
+## Motion Model Probabiity I
+
+Now we will practice implementing the motion model to determine P(location) for our Bayesian filter.
+
+Recall that we derived the following recursive structure for the motion model:
+
+$$\int p(x_t\|x_{t-1}, u_t, m)bel(x_{t-1})dx_{t-1}$$​	 
+
+and that we will implement this in the discretized form:
+
+$$\sum\limits_{i} p(x_t\|x_{t-1}^{(i)}, u_t, m)bel(x_{t-1}^{(i)})$$ 
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 20-21-30.png' /></div>
+
+## Motion Model Probability II
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 20-39-25.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 20-40-24.png' /></div>
+
+## Coding the Motion Model
+
+Now that we have manually calculated each step for determining the motion model probability, we will implement these steps in a function. The starter code below steps through each position x, calls the motion_model function and prints the results to stdout. To complete this exercise fill in the `motion_model` function which will involve:
+
+For each $$x_{t}$$:
+
+* Calculate the transition probability for each potential value $$x_{t-1}$$​	 
+* Calculate the discrete motion model probability by multiplying the transition model probability by the belief state (prior) for $$x_{t-1}$$​	 
+* Return total probability (sum) of each discrete probability
+
+## Observation Model Introduction
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 21-34-05.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 21-36-40.png' /></div>
+
+## Markov Assumption for Observation Model
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/20-i-markov-assumption-for-observation-model-first-try.00-00-22-16.still001.png' /></div>
+
+The Markov assumption can help us simplify the observation model. Recall that the Markov Assumption is that the next state is dependent only upon the preceding states and that preceding state information has already been used in our state estimation. As such, we can ignore terms in our observation model prior to $$x_t$$ since these values have already been accounted for in our current state and assume that t is independent of previous observations and controls.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/20-i-markov-assumption-for-observation-model-first-try.00-00-36-11.still002.png' /></div>
+
+With these assumptions we simplify our posterior distribution such that the observations at t are dependent only on x at time t and the map.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/20-i-markov-assumption-for-observation-model-first-try.00-01-18-09.still003.png' /></div>
+
+Since $$z_t$$ can be a vector of multiple observations we rewrite our observation model to account for the observation models for each single range measurement. We assume that the noise behavior of the individual range values $$z_t^1$$ to $$z_t^k$$ is independent and that our observations are independent, allowing us to represent the observation model as a product over the individual probability distributions of each single range measurement. Now we must determine how to define the observation model for a single range measurement.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 21-40-22.png' /></div>
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/20-i-markov-assumption-for-observation-model-first-try.00-03-23-08.still004.png' /></div>
+
+In general there exists a variety of observation models due to different sensor, sensor specific noise behavior and performance, and map types. For our 1D example we assume that our sensor measures to the n closest objects in the driving direction, which represent the landmarks on our map. We also assume that observation noise can be modeled as a Gaussian with a standard deviation of 1 meter and that our sensor can measure in a range of 0 – 100 meters.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/Screenshot from 2018-04-24 21-46-58.png' /></div>
+
+## Finalize the Bayes Localization Filter
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/21-i-finalize-the-bayes-localization-filter.00-01-00-15.still001.png' /></div>
+
+We have accomplished a lot in this lesson.
+
+* Starting with the generalized form of Bayes Rule we expressed our posterior, the belief of x at t as $$\eta$$ (normalizer) multiplied with the observation model and the motion model.
+* We simplified the observation model using the Markov assumption to determine the probability of z at time t, given only x at time t, and the map.
+* We expressed the motion model as a recursive state estimator using the Markov assumption and the law of total probability, resulting in a model that includes our belief at t – 1 and our transition model.
+* Finally we derived the general Bayes Filter for Localization (Markov Localization) by expressing our belief of x at t as a simplified version of our original posterior expression (top equation), $$\eta$$ multiplied by the simplified observation model and the motion model. Here the motion model is written as $$\hat{bel}$$, a prediction model.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/21-i-finalize-the-bayes-localization-filter.00-01-17-24.still002.png' /></div>
+
+The Bayes Localization Filter dependencies can be represented as a graph, by combining our sub-graphs. To estimate the new state x at t we only need to consider the previous belief state, the current observations and controls, and the map.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/21-i-finalize-the-bayes-localization-filter.00-01-35-19.still003.png' /></div>
+
+It is a common practice to represent this filter without the belief $$x_t$$ and to remove the map from the motion model. Ultimately we define $$bel(x_t)$$ as the following expression.
+
+## Bayes Filter Theory Summary
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/22-l-bayes-filter-theory-summary.00-00-22-29.still001.png' /></div>
+
+The image above sums up the core achievements of this lesson.
+
+* The Bayes Localization Filter Markov Localization is a general framework for recursive state estimation.
+* That means this framework allows us to use the previous state (state at t-1) to estimate a new state (state at t) using only current observations and controls (observations and control at t), rather than the entire data history (data from 0:t).
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/22-l-bayes-filter-theory-summary.00-00-52-03.still002.png' /></div>
+
+* The motion model describes the prediction step of the filter while the observation model is the update step.
+* The state estimation using the Bayes filter is dependent upon the interaction between prediction (motion model) and update (observation model steps) and all the localization methods discussed so far are realizations of the Bayes filter.
+* In the next few sections we will learn how to estimate pseudo ranges, calculate the observation model probability, and complete the implementation of the observation model in C++.
+
+## Observation Model Probability
+
+We will complete our Bayes' filter by implementing the observation model. The observation model uses pseudo range estimates and observation measurements as inputs. Let's recap what is meant by a pseudo range estimate and an observation measurement.
+
+For the figure below, the top 1d map (green car) shows our observation measurements. These are the distances from our actual car position at time t, to landmarks, as detected by sensors. In this example, those distances are 19m and 37m.
+
+The bottom 1d map (yellow car) shows our pseudo range estimates. These are the distances we would expect given the landmarks and assuming a given position x at time t, of 20m. In this example, those distances are 5, 11, 39, and 57m.
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/SDC-T2/obs-model-measurements-pseudoranges.png' /></div>
+
+The observation model will be implemented by performing the following at each time step:
+
+* Measure the range to landmarks up to 100m from the vehicle, in the driving direction (forward)
+* Estimate a pseudo range from each landmark by subtracting pseudo position from the landmark position
+* Match each pseudo range estimate to its closest observation measurement
+* For each pseudo range and observation measurement pair, calculate a probability by passing relevant values to norm_pdf: norm_pdf(observation_measurement, pseudo_range_estimate, observation_stdev)
+* Return the product of all probabilities
+
+Why do we multiply all the probabilities in the last step? Our final signal (probability) must reflect all pseudo range, observation pairs. This blends our signal. For example, if we have a high probability match (small difference between the pseudo range estimate and the observation measurement) and low probability match (large difference between the pseudo range estimate and the observation measurement), our resultant probability will be somewhere in between, reflecting the overall belief we have in that state.
+
+Let's practice this process using the following information and norm_pdf.
+
+* pseudo position: x = 10m
+* vector of landmark positions from our map: [6m, 15m, 21m, 40m]
+* observation measurements: [5.5m, 11m]
+* observation standard deviation: 1.0m
+
+Why do we multiply all the probabilities in the last step? Our final signal (probability) must reflect all pseudo range, observation pairs. This blends our signal. For example, if we have a high probability match (small difference between the pseudo range estimate and the observation measurement) and low probability match (large difference between the pseudo range estimate and the observation measurement), our resultant probability will be somewhere in between, reflecting the overall belief we have in that state.
+
+
+
+

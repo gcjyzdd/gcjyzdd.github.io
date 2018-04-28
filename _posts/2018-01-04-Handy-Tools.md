@@ -263,3 +263,25 @@ Add a '*' at the end of each line:
 :%s/$/\*/g
 ```
 
+## GDB with Eclipse
+
+Add flags `-g -O0` to compilation. 
+
+```
+cat CmakeLists.txt
+project(bfgs_mpc)
+
+cmake_minimum_required (VERSION 3.5)
+
+
+#Flags for compiler
+IF(("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+    set(CMAKE_CXX_FLAGS "-std=c++11 -g -O0")
+ENDIF()
+
+```
+
+Set build configuration (`build location`) for Eclipse:
+
+<div style="text-align:center"><img src ='{{site.baseurl}}/assets/tools/Screenshot from 2018-04-28 15-07-49.png' /></div>
+

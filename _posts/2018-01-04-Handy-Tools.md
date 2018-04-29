@@ -285,3 +285,8 @@ Set build configuration (`build location`) for Eclipse:
 
 <div style="text-align:center"><img src ='{{site.baseurl}}/assets/tools/Screenshot from 2018-04-28 15-07-49.png' /></div>
 
+## Solve unresolved symbols XXX with Eclipse
+
+1. Go to Project -> Properties -> C/C++ General -> Preprocessor Include Paths, Macros, etc. -> Providers -> CDT GCC built-in compiler settings, deactivate Use global provider shared between projects and add the command line argument -std=c++11.
+2. Project -> C++ Index -> Rebuild
+

@@ -399,13 +399,86 @@ Why do we multiply all the probabilities in the last step? Our final signal (pro
 
 Let's practice this process using the following information and norm_pdf.
 
-* pseudo position: x = 10m
-* vector of landmark positions from our map: [6m, 15m, 21m, 40m]
-* observation measurements: [5.5m, 11m]
-* observation standard deviation: 1.0m
+* **pseudo position:** x = 10m
+* **vector of landmark positions from our map:** [6m, 15m, 21m, 40m]
+* **observation measurements:** [5.5m, 11m]
+* **observation standard deviation:** 1.0m
 
-Why do we multiply all the probabilities in the last step? Our final signal (probability) must reflect all pseudo range, observation pairs. This blends our signal. For example, if we have a high probability match (small difference between the pseudo range estimate and the observation measurement) and low probability match (large difference between the pseudo range estimate and the observation measurement), our resultant probability will be somewhere in between, reflecting the overall belief we have in that state.
+### Estimate Pseudo Ranges
+Our first step is to estimate pseudo ranges: [5,11,30]
 
+### Association
+Match each observation measurement with the nearest estimated pseudo range. We will only use each measurement and pseudo range once. [(5.5,5),(11,11)]
+
+### Determine Probabilities
+Calculate a probability for each observation measurement and pseudo range estimate pair by passing relevant data to `norm_pdf`. [3.52E-1,3.99E-1]
+
+Recall that our observation model probability can be determined through `norm_pdf(observation_measurement, pseudo_range_estimate, observation_stdev)`.
+
+### Observation Model Probability
+To complete our observation model probability, determine the product of each observation probability from the previous quiz. 1.40E-1
+
+Now that we have implemented the observation model manually, we will try out a code implementation in the next few concepts.
+
+## Get Pseudo Ranges
+
+In the previous exercises we manually executed the steps for determining pseudo ranges and our observation model probability. Now let's implement a function that accepts a vector of landmark positions, a pseudo position (x), and returns a vector of sorted (ascending) pseudo ranges. Later, we will use the pseudo range vector as an input for our observation model function.
+
+To implement the `pseudo_range_estimator` function we must do the following for each pseudo position x:
+
+* For each landmark position:
+  * determine the distance between each pseudo position x and each landmark position
+  * if the distance is positive (landmark is forward of the pseudo position) push the distance to the pseudo range vector
+  * sort the pseudo range vector in ascending order
+  * return the pseudo range vector
+
+There may be missing x values in the output. This is because not all x values have a forward landmark (positive pseudo range).
+
+## Coding the Observation Model
+
+The final individual model we will implement is the observation model. The observation model accepts the pseudo range vector from the previous assignment, an observation vector (from vehicle sensors), and returns the observation model probability. Ultimately, we will multiply this by the motion model probability, then normalize to produce the belief state for the current time step.
+
+The starter code below steps through each pseudo position x, calls the `observation_model` function and prints the results to standout. To complete this exercise fill in the `observation_model function`.
+
+To implement the observation_model function we must do the following for each pseudo position x:
+
+* For each observation:
+  * determine if a pseudo range vector exists the current pseudo position x
+  * if the vector exists extract and store the minimum distance, element 0 of the sorted vector, and remove that element (so we don't re-use it). This will be passed to `norm_pdf`
+  * if the pseudo range vector does not exist, pass the maximum distance to `norm_pdf`
+  * use `norm_pdf` to determine the observation model probability
+  * return the total probability
+
+
+## Coding the Full Filter
+
+In previous lessons we learned the basis of our filter, tried some example calculations by hand, and implemented critical steps and models for a single time step and vector of sensor observations. In this final coding exercise we will implement the entire filter using the pieces we have already developed for multiple time steps and sensor observations.
+
+Sensor observations are provided in a 2D vector where each inner vector represents the sensor observations, in meters, at a time step.
+
+```
+{{1,7,12,21}, {0,6,11,20}, {5,10,19}, {4,9,18}, {3,8,17}, {2,7,16}, 
+{1,6,15}, {0,5,14}, {4,13}, {3,12},{2,11},{1,10},{0,9},{8},{7},{6},{5},
+{4},{3},{2},{1},{0}, {}, {}, {}};
+```
+
+Implement the Bayes' localization filter by first initializing priors, then doing the following within each time step:
+
+* extract sensor observations
+
+  * for each pseudo-position:
+    * get the motion model probability
+    * determine pseudo ranges
+    * get the observation model probability
+    * use the motion and observation model probabilities to calculate the posterior probability
+  * normalize posteriors (see helpers.h for a normalization function)
+  * update priors (priors --> posteriors)
+
+**All tasks are within the main function and are labeled as **`TODO`.
+
+**Troubleshooting:**
+
+To help troubleshoot print statements have been placed throughout the code below and commented out. Uncommenting these statements will help to follow each step of the filter.
 
 
 

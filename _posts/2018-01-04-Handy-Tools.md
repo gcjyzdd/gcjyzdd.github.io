@@ -290,3 +290,15 @@ Set build configuration (`build location`) for Eclipse:
 1. Go to Project -> Properties -> C/C++ General -> Preprocessor Include Paths, Macros, etc. -> Providers -> CDT GCC built-in compiler settings, deactivate Use global provider shared between projects and add the command line argument -std=c++11.
 2. Project -> C++ Index -> Rebuild
 
+## Ubuntu switch display manager from lightdm to gdm
+
+
+```sh
+# configure gdm3
+sudo dpkg-reconfigure gdm3
+sudo service lightdm stop
+sudo service gdm3 start
+```
+
+Install tweak to set details for gnome.
+

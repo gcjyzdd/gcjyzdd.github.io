@@ -186,6 +186,18 @@ ffmpeg \
  -c:v libx264 -c:a libmp3lame -qscale:a 2 -ac 2 -ar 44100 $4
 ```
 
+2 videos to 1x2:
+
+```sh
+#!/bin/bash
+# combine two videos into one
+
+ffmpeg \
+    -i $1  -i $2\
+    -filter_complex 'nullsrc=size=1920x720 [base];[0:v] setpts=PTS-STARTPTS, scale=960x720 [upperleft];[1:v] setpts=PTS-STARTPTS, scale=960x720 [rightupper];[base][upperleft] overlay=shortest=1 [tmp1];[tmp1][rightupper] overlay=shortest=1:x=960'\
+ -c:v libx264 -c:a libmp3lame -qscale:a 2 -ac 2 -ar 44100 $3
+```
+
 [ref](https://trac.ffmpeg.org/wiki/Create%20a%20mosaic%20out%20of%20several%20input%20videos)
 
 

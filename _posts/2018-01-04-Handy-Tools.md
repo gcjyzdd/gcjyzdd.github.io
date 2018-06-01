@@ -51,6 +51,10 @@ b11496-14.pdf  b11496-3.pdf   b11496-8.pdf
 
 ### Crop PDF
 
+```sh
+pdfcrop --bbox '40 100 580 760' zips2013.pdf /tmp/out.pdf
+```
+
 ---
 ## tmux
 
